@@ -1,0 +1,579 @@
+<div *ngIf="this.bool">
+    <div *ngIf="this.currentBool">
+        <div *ngIf="currentBool[0].boolVal">
+            <nav class="navbar navbar-expand-lg navbar-light ">
+                <div class="col-md-4 col-4 col-sm-4">
+                    <img src="../../assets/images/logo-gris.png" alt="logo Inteligo">
+                </div>
+                <div class="col-md-4 col-8 col-sm-4 text-center">
+                    <span>Masajes antiestrés</span>
+                    <div class="separador"></div>
+                    <span>Elige tu turno</span>
+                </div>
+                <div class="col-md-4 col-sm-4 text-right d-none d-sm-none d-md-block">
+                    <a class="logOut" (click)="onLogout()"><i _ngcontent-c0="" aria-hidden="true" class="fa fa-sign-out"></i> Salir</a>
+                </div>
+            </nav>
+            <div class="d-view">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-2 col-sm-2 content-lgnd">
+                            <div class="item-lgnd">
+                                <div class="lgnd-stt-turn lgnd-stt-turn-avail"></div><span>Disponible</span>
+                            </div>
+                            <div class="item-lgnd">
+                                <div class="lgnd-stt-turn lgnd-stt-turn-navail"></div><span>Seleccionado</span>
+                            </div>
+                            <div class="item-lgnd">
+                                <div class="lgnd-stt-turn lgnd-stt-turn-ocup"></div><span>Ocupado</span>
+                            </div>
+
+                        </div>
+                        <div class="col-md-8 col-sm-2">
+                            <div class="content">
+                                <div class="container mt-3 mb-3 therapist-content">
+                                    <div class="row">
+                                        <div class="col-md-4 col-4 text-center">
+                                            <div class="therapist-container">
+                                                <span>Terapeuta 1</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-4 text-center">
+                                            <div class="therapist-container">
+                                                <span>Terapeuta 2</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-4 text-center">
+                                            <div class="therapist-container">
+                                                <span>Terapeuta 3</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="container turn-content">
+                                    <div *ngIf="returnThis">
+                                        <div *ngFor="let userItem of userList">
+                                            <div *ngIf="userItem.mail == me.mail && currentTime">
+                                                <div class="row">
+                                                    <div *ngIf="userItem.reserved == false" class="col-12 col-md-4 text-center">
+                                                        <div *ngFor="let item1 of terapeuta1" class="mb-2 turn-container">
+                                                            <button *ngIf="item1.confirm == false && item1.available == false && item1.userName < 1"
+                                                                disabled class="turn-btn">
+                                                                {{item1.hourStart}} - {{item1.hourEnd}}</button>
+                                                            <button *ngIf="item1.confirm == false && item1.available == true && item1.userName < 1"
+                                                                class="turn-btn turn-disponible" (click)="onSelectTurn1(userItem,item1,modalSelectTurn)" [disabled]='currentTime[0].time > item1.hour24'>
+                                                                {{item1.hourStart}} - {{item1.hourEnd}}</button>
+                                                            <button *ngIf="item1.confirm == true && item1.available == false  && item1.userName == name"
+                                                                class="turn-btn turn-seleccionado" (click)="onSelectTurn1(userItem,item1,modalSelectTurn)" [disabled]='currentTime[0].time > item1.hour24'>
+                                                                {{item1.hourStart}} - {{item1.hourEnd}}</button>
+                                                            <button *ngIf="(item1.confirm == true  && item1.available == false && item1.userName != name)  || (item1.confirm == true && item1.available == true  && item1.userName != name)"
+                                                                disabled class="turn-btn">
+                                                                {{item1.hourStart}} - {{item1.hourEnd}}</button>
+                                                        </div>
+                                                    </div>
+                                                    <div *ngIf="userItem.reserved == true" class="col-12 col-md-4 text-center">
+                                                        <div *ngFor="let item1 of terapeuta1" class="mb-2 turn-container">
+                                                            <button *ngIf="item1.confirm == false && item1.userName < 1"
+                                                                class="turn-btn turn-disponible" (click)="onSelectTurn1(userItem,item1,modalSorry)" [disabled]='currentTime[0].time > item1.hour24'>
+                                                                {{item1.hourStart}} - {{item1.hourEnd}}</button>
+                                                            <button *ngIf="item1.confirm == true && item1.userName == name"
+                                                                class="turn-btn turn-seleccionado" (click)="onSelectTurn1(userItem,item1,modalConfirm)" >
+                                                                {{item1.hourStart}} - {{item1.hourEnd}}</button>
+                                                            <button *ngIf="item1.confirm == true && item1.userName != name"
+                                                                disabled class="turn-btn">
+                                                                {{item1.hourStart}} - {{item1.hourEnd}} </button>
+                                                        </div>
+                                                    </div>
+
+                                                    <div *ngIf="userItem.reserved == false" class="col-12 col-md-4 text-center">
+                                                        <div *ngFor="let item2 of terapeuta2" class="mb-2 turn-container">
+                                                            <button *ngIf="item2.confirm == false && item2.available == false && item2.userName < 1"
+                                                                disabled class="turn-btn">
+                                                                {{item2.hourStart}} - {{item2.hourEnd}} </button>
+                                                            <button *ngIf="item2.confirm == false && item2.available == true && item2.userName < 1"
+                                                                class="turn-btn turn-disponible" (click)="onSelectTurn2(userItem,item2,modalSelectTurn)" [disabled]='currentTime[0].time > item2.hour24'>
+                                                                {{item2.hourStart}} - {{item2.hourEnd}} </button>
+                                                            <button *ngIf="item2.confirm == true && item2.available == false && item2.userName == name"
+                                                                class="turn-btn turn-seleccionado" (click)="onSelectTurn2(userItem,item2,modalSelectTurn)" [disabled]='currentTime[0].time > item2.hour24'>
+                                                                {{item2.hourStart}} - {{item2.hourEnd}} </button>
+                                                            <button *ngIf="(item2.confirm == true  && item2.available == false && item2.userName != name) || (item2.confirm == true && item2.available == true  && item2.userName != name)"
+                                                                disabled class="turn-btn">
+                                                                {{item2.hourStart}} - {{item2.hourEnd}} </button>
+                                                        </div>
+                                                    </div>
+
+                                                    <div *ngIf="userItem.reserved == true" class="col-12 col-md-4 text-center">
+                                                        <div *ngFor="let item2 of terapeuta2" class="mb-2 turn-container">
+                                                            <button *ngIf="item2.confirm == false && item2.userName < 1"
+                                                                class="turn-btn turn-disponible" (click)="onSelectTurn2(userItem,item2,modalSorry)" [disabled]='currentTime[0].time > item2.hour24'>
+                                                                {{item2.hourStart}} - {{item2.hourEnd}} </button>
+                                                            <button *ngIf="item2.confirm == true && item2.userName == name"
+                                                                class="turn-btn turn-seleccionado" (click)="onSelectTurn2(userItem,item2,modalConfirm)" [disabled]='currentTime[0].time > item2.hour24'>
+                                                                {{item2.hourStart}} - {{item2.hourEnd}} </button>
+                                                            <button *ngIf="item2.confirm == true && item2.userName != name"
+                                                                disabled class="turn-btn">
+                                                                {{item2.hourStart}} - {{item2.hourEnd}} </button>
+                                                        </div>
+                                                    </div>
+
+                                                    <div *ngIf="userItem.reserved == false" class="col-12 col-md-4 mb-2 text-center">
+                                                        <div *ngFor="let item3 of terapeuta3" class="mb-2 turn-container">
+                                                            <button *ngIf="item3.confirm == false && item3.available == false && item3.userName < 1"
+                                                                disabled class="turn-btn">
+                                                                {{item3.hourStart}} - {{item3.hourEnd}} </button>
+                                                            <button *ngIf="item3.confirm == false && item3.available == true && item3.userName < 1"
+                                                                class="turn-btn turn-disponible" (click)="onSelectTurn3(userItem,item3,modalSelectTurn)" [disabled]='currentTime[0].time > item3.hour24'>
+                                                                {{item3.hourStart}} - {{item3.hourEnd}} </button>
+                                                            <button *ngIf="item3.confirm == true && item3.available == false && item3.userName == name"
+                                                                class="turn-btn turn-seleccionado" (click)="onSelectTurn3(userItem,item3,modalSelectTurn)" [disabled]='currentTime[0].time > item3.hour24'>
+                                                                {{item3.hourStart}} - {{item3.hourEnd}} </button>
+                                                            <button *ngIf="(item3.confirm == true  && item3.available == false && item3.userName != name) || (item3.confirm == true && item3.available == true  && item3.userName != name)"
+                                                                disabled class="turn-btn">
+                                                                {{item3.hourStart}} - {{item3.hourEnd}} </button>
+                                                        </div>
+                                                    </div>
+                                                    <div *ngIf="userItem.reserved == true" class="col-12 col-md-4 mb-2 text-center">
+                                                        <div *ngFor="let item3 of terapeuta3" class="mb-2 turn-container">
+                                                            <button *ngIf="item3.confirm == false && item3.userName < 1"
+                                                                class="turn-btn turn-disponible" (click)="onSelectTurn3(userItem,item3,modalSorry)" [disabled]='currentTime[0].time > item3.hour24'>
+                                                                {{item3.hourStart}} - {{item3.hourEnd}} </button>
+                                                            <button *ngIf="item3.confirm == true && item3.userName == name"
+                                                                class="turn-btn turn-seleccionado" (click)="onSelectTurn3(userItem, item3,modalConfirm)" [disabled]='currentTime[0].time > item3.hour24'>
+                                                                {{item3.hourStart}} - {{item3.hourEnd}} </button>
+                                                            <button *ngIf="item3.confirm == true && item3.userName != name"
+                                                                disabled class="turn-btn">
+                                                                {{item3.hourStart}} - {{item3.hourEnd}} </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="!returnThis && currentTime">
+                                        <div class="row">
+                                            <div class="col-12 col-md-4 text-center">
+                                                <div *ngFor="let item1 of terapeuta1" class="mb-2 turn-container">
+                                                    <button *ngIf="item1.confirm == false && item1.available == false && item1.userName < 1"
+                                                        disabled class="turn-btn">
+                                                        {{item1.hourStart}} - {{item1.hourEnd}} </button>
+                                                    <button *ngIf="item1.confirm == false && item1.available == true && item1.userName < 1"
+                                                        class="turn-btn turn-disponible" (click)="onSelectTurn1(userItem,item1,modalSelectTurn)" [disabled]='currentTime[0].time > item1.hour24'>
+                                                        {{item1.hourStart}} - {{item1.hourEnd}} </button>
+                                                    <button *ngIf="item1.confirm == true && item1.available == false && item1.userName == name"
+                                                        class="turn-btn turn-seleccionado" (click)="onSelectTurn1(userItem,item1,modalSelectTurn)" [disabled]='currentTime[0].time > item1.hour24'>
+                                                        {{item1.hourStart}} - {{item1.hourEnd}} </button>
+                                                    <button *ngIf="item1.confirm == true && item1.userName != name"
+                                                        disabled class="turn-btn">
+                                                        {{item1.hourStart}} - {{item1.hourEnd}} </button>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 col-md-4 text-center">
+                                                <div *ngFor="let item2 of terapeuta2" class="mb-2 turn-container">
+                                                    <button *ngIf="item2.confirm == false && item2.available == false && item2.userName < 1"
+                                                        disabled class="turn-btn">
+                                                        {{item2.hourStart}} - {{item2.hourEnd}} </button>
+                                                    <button *ngIf="item2.confirm == false && item2.available == true && item2.userName < 1"
+                                                        class="turn-btn turn-disponible" (click)="onSelectTurn2(userItem,item2,modalSelectTurn)" [disabled]='currentTime[0].time > item2.hour24'>
+                                                        {{item2.hourStart}} - {{item2.hourEnd}} </button>
+                                                    <button *ngIf="item2.confirm == true && item2.available == false && item2.userName == name"
+                                                        class="turn-btn turn-seleccionado" (click)="onSelectTurn2(userItem,item2,modalSelectTurn)" [disabled]='currentTime[0].time > item2.hour24'>
+                                                        {{item2.hourStart}} - {{item2.hourEnd}} </button>
+                                                    <button *ngIf="item2.confirm == true && item2.userName != name"
+                                                        disabled class="turn-btn">
+                                                        {{item2.hourStart}} - {{item2.hourEnd}} </button>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 col-md-4 mb-2 text-center">
+                                                <div *ngFor="let item3 of terapeuta3" class="mb-2 turn-container">
+                                                    <button *ngIf="item3.confirm == false && item3.available == false && item3.userName < 1"
+                                                        disabled class="turn-btn">
+                                                        {{item3.hourStart}} - {{item3.hourEnd}} </button>
+                                                    <button *ngIf="item3.confirm == false && item3.available == true && item3.userName < 1"
+                                                        class="turn-btn turn-disponible" (click)="onSelectTurn3(userItem,item3,modalSelectTurn)" [disabled]='currentTime[0].time > item3.hour24'>
+                                                        {{item3.hourStart}} - {{item3.hourEnd}} </button>
+                                                    <button *ngIf="item3.confirm == true && item3.available == false && item3.userName == name"
+                                                        class="turn-btn turn-seleccionado" (click)="onSelectTurn3(userItem,item3,modalSelectTurn)" [disabled]='currentTime[0].time > item3.hour24'>
+                                                        {{item3.hourStart}} - {{item3.hourEnd}} </button>
+                                                    <button *ngIf="item3.confirm == true && item3.userName != name"
+                                                        disabled class="turn-btn">
+                                                        {{item3.hourStart}} - {{item3.hourEnd}} </button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="m-view">
+                <div *ngIf="returnThis">
+                    <div *ngFor="let userItem of userList">
+                        <div *ngIf="userItem.mail == me.mail && currentTime">
+                            <ngb-carousel>
+                                <ng-template ngbSlide>
+                                    <div class="therapist-container-sm mt-4 mb-4">
+                                        <span>Terapeuta 3</span>
+                                        <span>Terapeuta 1</span>
+                                        <span>Terapeuta 2</span>
+                                    </div>
+                                    <div *ngIf="userItem.reserved == false" class="col-12 col-md-4 text-center">
+                                        <div *ngFor="let item1 of terapeuta1" class="mb-2 turn-container">
+                                            <button *ngIf="item1.confirm == false && item1.available == false && item1.userName < 1"
+                                                disabled class="turn-btn">
+                                                {{item1.hourStart}} - {{item1.hourEnd}} </button>
+                                            <button *ngIf="item1.confirm == false && item1.available == true && item1.userName < 1"
+                                                class="turn-btn turn-disponible" (click)="onSelectTurn1(userItem,item1,modalSelectTurn)" [disabled]='currentTime[0].time > item1.hour24'>
+                                                {{item1.hourStart}} - {{item1.hourEnd}} </button>
+                                            <button *ngIf="item1.confirm == true && item1.available == false  && item1.userName == name"
+                                                class="turn-btn turn-seleccionado" (click)="onSelectTurn1(userItem,item1,modalSelectTurn)" [disabled]='currentTime[0].time > item1.hour24'>
+                                                {{item1.hourStart}} - {{item1.hourEnd}} </button>
+                                            <button *ngIf="(item1.confirm == true  && item1.available == false && item1.userName != name)  || (item1.confirm == true && item1.available == true  && item1.userName != name)"
+                                                disabled class="turn-btn">
+                                                {{item1.hourStart}} - {{item1.hourEnd}} </button>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="userItem.reserved == true" class="col-12 col-md-4 text-center">
+                                        <div *ngFor="let item1 of terapeuta1" class="mb-2 turn-container">
+                                            <button *ngIf="item1.confirm == false && item1.userName < 1" class="turn-btn turn-disponible"
+                                                (click)="onSelectTurn1(userItem,item1,modalSorry)" [disabled]='currentTime[0].time > item1.hour24'>
+                                                {{item1.hourStart}} - {{item1.hourEnd}} </button>
+                                            <button *ngIf="item1.confirm == true && item1.userName == name" class="turn-btn turn-seleccionado"
+                                                (click)="onSelectTurn1(userItem,item1,modalConfirm)" [disabled]='currentTime[0].time > item1.hour24'>
+                                                {{item1.hourStart}} - {{item1.hourEnd}} </button>
+                                            <button *ngIf="item1.confirm == true && item1.userName != name" disabled
+                                                class="turn-btn">
+                                                {{item1.hourStart}} - {{item1.hourEnd}} </button>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                                <ng-template ngbSlide>
+                                    <div class="therapist-container-sm mt-4 mb-4">
+                                        <span>Terapeuta 1</span>
+                                        <span>Terapeuta 2</span>
+                                        <span>Terapeuta 3</span>
+                                    </div>
+                                    <div *ngIf="userItem.reserved == false" class="col-12 col-md-4 text-center">
+                                        <div *ngFor="let item2 of terapeuta2" class="mb-2 turn-container">
+                                            <button *ngIf="item2.confirm == false && item2.available == false && item2.userName < 1"
+                                                disabled class="turn-btn">
+                                                {{item2.hourStart}} - {{item2.hourEnd}} </button>
+                                            <button *ngIf="item2.confirm == false && item2.available == true && item2.userName < 1"
+                                                class="turn-btn turn-disponible" (click)="onSelectTurn2(userItem,item2,modalSelectTurn)" [disabled]='currentTime[0].time > item2.hour24'>
+                                                {{item2.hourStart}} - {{item2.hourEnd}} </button>
+                                            <button *ngIf="item2.confirm == true && item2.available == false && item2.userName == name"
+                                                class="turn-btn turn-seleccionado" (click)="onSelectTurn2(userItem,item2,modalSelectTurn)" [disabled]='currentTime[0].time > item2.hour24'>
+                                                {{item2.hourStart}} - {{item2.hourEnd}} </button>
+                                            <button *ngIf="(item2.confirm == true  && item2.available == false && item2.userName != name) || (item2.confirm == true && item2.available == true  && item2.userName != name)"
+                                                disabled class="turn-btn">
+                                                {{item2.hourStart}} - {{item2.hourEnd}} </button>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="userItem.reserved == true" class="col-12 col-md-4 text-center">
+                                        <div *ngFor="let item2 of terapeuta2" class="mb-2 turn-container">
+                                            <button *ngIf="item2.confirm == false && item2.userName < 1" class="turn-btn turn-disponible"
+                                                (click)="onSelectTurn2(userItem,item2,modalSorry)" [disabled]='currentTime[0].time > item2.hour24'>
+                                                {{item2.hourStart}} - {{item2.hourEnd}} </button>
+                                            <button *ngIf="item2.confirm == true && item2.userName == name" class="turn-btn turn-seleccionado"
+                                                (click)="onSelectTurn2(userItem,item2,modalConfirm)" [disabled]='currentTime[0].time > item2.hour24'>
+                                                {{item2.hourStart}} - {{item2.hourEnd}} </button>
+                                            <button *ngIf="item2.confirm == true && item2.userName != name" disabled
+                                                class="turn-btn">
+                                                {{item2.hourStart}} - {{item2.hourEnd}} </button>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                                <ng-template ngbSlide>
+                                    <div class="therapist-container-sm mt-4 mb-4">
+                                        <span>Terapeuta 2</span>
+                                        <span>Terapeuta 3</span>
+                                        <span>Terapeuta 1</span>
+                                    </div>
+                                    <div *ngIf="userItem.reserved == false" class="col-12 col-md-4 mb-2 text-center">
+                                        <div *ngFor="let item3 of terapeuta3" class="mb-2 turn-container">
+                                            <button *ngIf="item3.confirm == false && item3.available == false && item3.userName < 1"
+                                                disabled class="turn-btn">
+                                                {{item3.hourStart}} - {{item3.hourEnd}} </button>
+                                            <button *ngIf="item3.confirm == false && item3.available == true && item3.userName < 1"
+                                                class="turn-btn turn-disponible" (click)="onSelectTurn3(userItem,item3,modalSelectTurn)" [disabled]='currentTime[0].time > item3.hour24'>
+                                                {{item3.hourStart}} - {{item3.hourEnd}} </button>
+                                            <button *ngIf="item3.confirm == true && item3.available == false && item3.userName == name"
+                                                class="turn-btn turn-seleccionado" (click)="onSelectTurn3(userItem,item3,modalSelectTurn)" [disabled]='currentTime[0].time > item3.hour24'>
+                                                {{item3.hourStart}} - {{item3.hourEnd}} </button>
+                                            <button *ngIf="(item3.confirm == true  && item3.available == false && item3.userName != name) || (item3.confirm == true && item3.available == true  && item3.userName != name)"
+                                                disabled class="turn-btn">
+                                                {{item3.hourStart}} - {{item3.hourEnd}} </button>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="userItem.reserved == true" class="col-12 col-md-4 mb-2 text-center">
+                                        <div *ngFor="let item3 of terapeuta3" class="mb-2 turn-container">
+                                            <button *ngIf="item3.confirm == false && item3.userName < 1" class="turn-btn turn-disponible"
+                                                (click)="onSelectTurn3(userItem,item3,modalSorry)" [disabled]='currentTime[0].time > item3.hour24'>
+                                                {{item3.hourStart}} - {{item3.hourEnd}} </button>
+                                            <button *ngIf="item3.confirm == true && item3.userName == name" class="turn-btn turn-seleccionado"
+                                                (click)="onSelectTurn3(userItem, item3,modalConfirm)" [disabled]='currentTime[0].time > item3.hour24'>
+                                                {{item3.hourStart}} - {{item3.hourEnd}} </button>
+                                            <button *ngIf="item3.confirm == true && item3.userName != name" disabled
+                                                class="turn-btn">
+                                                {{item3.hourStart}} - {{item3.hourEnd}} </button>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </ngb-carousel>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="!returnThis && currentTime">
+                    <ngb-carousel>
+                        <ng-template ngbSlide>
+                            <div class="therapist-container-sm mt-4 mb-4">
+                                <span>Terapeuta 3</span>
+                                <span>Terapeuta 1</span>
+                                <span>Terapeuta 2</span>
+                            </div>
+                            <div class="col-12 col-md-4 text-center">
+                                <div *ngFor="let item1 of terapeuta1" class="mb-2 turn-container">
+                                    <button *ngIf="item1.confirm == false && item1.available == false && item1.userName < 1"
+                                        disabled class="turn-btn">
+                                        {{item1.hourStart}} - {{item1.hourEnd}} </button>
+                                    <button *ngIf="item1.confirm == false && item1.available == true && item1.userName < 1"
+                                        class="turn-btn turn-disponible" (click)="onSelectTurn1(userItem,item1,modalSelectTurn)" [disabled]='currentTime[0].time > item1.hour24'>
+                                        {{item1.hourStart}} - {{item1.hourEnd}} </button>
+                                    <button *ngIf="item1.confirm == true && item1.available == false && item1.userName == name"
+                                        class="turn-btn turn-seleccionado" (click)="onSelectTurn1(userItem,item1,modalSelectTurn)" [disabled]='currentTime[0].time > item1.hour24'>
+                                        {{item1.hourStart}} - {{item1.hourEnd}} </button>
+                                    <button *ngIf="item1.confirm == true && item1.userName != name" disabled class="turn-btn">
+                                        {{item1.hourStart}} - {{item1.hourEnd}} </button>
+                                </div>
+                            </div>
+                        </ng-template>
+                        <ng-template ngbSlide>
+                            <div class="therapist-container-sm mt-4 mb-4">
+                                <span>Terapeuta 1</span>
+                                <span>Terapeuta 2</span>
+                                <span>Terapeuta 3</span>
+                            </div>
+                            <div class="col-12 col-md-4 text-center">
+                                <div *ngFor="let item2 of terapeuta2" class="mb-2 turn-container">
+                                    <button *ngIf="item2.confirm == false && item2.available == false && item2.userName < 1"
+                                        disabled class="turn-btn">
+                                        {{item2.hourStart}} - {{item2.hourEnd}} </button>
+                                    <button *ngIf="item2.confirm == false && item2.available == true && item2.userName < 1"
+                                        class="turn-btn turn-disponible" (click)="onSelectTurn2(userItem,item2,modalSelectTurn)" [disabled]='currentTime[0].time > item2.hour24'>
+                                        {{item2.hourStart}} - {{item2.hourEnd}} </button>
+                                    <button *ngIf="item2.confirm == true && item2.available == false && item2.userName == name"
+                                        class="turn-btn turn-seleccionado" (click)="onSelectTurn2(userItem,item2,modalSelectTurn)" [disabled]='currentTime[0].time > item2.hour24'>
+                                        {{item2.hourStart}} - {{item2.hourEnd}} </button>
+                                    <button *ngIf="item2.confirm == true && item2.userName != name" disabled class="turn-btn">
+                                        {{item2.hourStart}} - {{item2.hourEnd}} </button>
+                                </div>
+                            </div>
+                        </ng-template>
+                        <ng-template ngbSlide>
+                            <div class="therapist-container-sm mt-4 mb-4">
+                                <span>Terapeuta 2</span>
+                                <span>Terapeuta 3</span>
+                                <span>Terapeuta 1</span>
+                            </div>
+                            <div class="col-12 col-md-4 mb-2 text-center">
+                                <div *ngFor="let item3 of terapeuta3" class="mb-2 turn-container">
+                                    <button *ngIf="item3.confirm == false && item3.available == false && item3.userName < 1"
+                                        disabled class="turn-btn">
+                                        {{item3.hourStart}} - {{item3.hourEnd}} </button>
+                                    <button *ngIf="item3.confirm == false && item3.available == true && item3.userName < 1"
+                                        class="turn-btn turn-disponible" (click)="onSelectTurn3(userItem,item3,modalSelectTurn)" [disabled]='currentTime[0].time > item3.hour24'>
+                                        {{item3.hourStart}} - {{item3.hourEnd}} </button>
+                                    <button *ngIf="item3.confirm == true && item3.available == false && item3.userName == name"
+                                        class="turn-btn turn-seleccionado" (click)="onSelectTurn3(userItem,item3,modalSelectTurn)" [disabled]='currentTime[0].time > item3.hour24'>
+                                        {{item3.hourStart}} - {{item3.hourEnd}} </button>
+                                    <button *ngIf="item3.confirm == true && item3.userName != name" disabled class="turn-btn">
+                                        {{item3.hourStart}} - {{item3.hourEnd}} </button>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </ngb-carousel>
+                </div>
+                <div class="container-fluid mt-4">
+                    <div class="row text-content mt-4">
+                        <div class="col-md-3 col-3 text-center mt-4">
+                            <div class="lgnd-stt-turn lgnd-stt-turn-avail"></div><span>Disponible</span>
+                        </div>
+                        <div class="col-md-3 col-3 text-center mt-4">
+                            <div class="lgnd-stt-turn lgnd-stt-turn-navail"></div><span>Seleccionado</span>
+                        </div>
+                        <div class="col-md-3 col-4 text-center mt-4">
+                            <div class="lgnd-stt-turn lgnd-stt-turn-ocup"></div><br><span>Ocupado</span>
+                        </div>
+                        <div class="col-md-3 col-2 mt-4">
+                            <div class="text-right">
+                                <a class="logOut" (click)="onLogout()"> Salir <img src="../../assets/images/logout.png"
+                                        alt=""></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <ng-template #modalSelectTurn let-c="close" let-d="dismiss" class="modal-dialog-centered modal-center-vertical">
+                <div class="text-right mr-1">
+
+                    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="d('Cross click')">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+
+                </div>
+                <div class="modal-body">
+                    <div class="text-center">
+                        <h3 class="modal-title text-modal">¿Deseas confirmar este turno?</h3>
+                    </div>
+
+                    <div class="mt-4 mb-5 text-center">
+                        <div *ngFor="let userItem of userList" class="d-inline">
+                            <div *ngIf="userItem.mail == me.mail" class="d-inline">
+                                <button *ngIf="selectedTurn.therapistId == 1 && selectedTurn.confirm == false" type="button"
+                                    class="btn btn-confirm mr-2" (click)="onConfirmTurn1(userItem,this.primero,modalConfirm, modalTurnoOcupado)">Confirmar</button>
+                                <button *ngIf="selectedTurn.therapistId == 2 && selectedTurn.confirm == false" type="button"
+                                    class="btn btn-confirm mr-2" (click)="onConfirmTurn2(userItem,this.primero,modalConfirm, modalTurnoOcupado)">Confirmar</button>
+                                <button *ngIf="selectedTurn.therapistId == 3 && selectedTurn.confirm == false" type="button"
+                                    class="btn btn-confirm mr-2" (click)="onConfirmTurn3(userItem,this.primero,modalConfirm, modalTurnoOcupado)">Confirmar</button>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-cancel" aria-label="Close" (click)="d('Cross click')">Cancelar</button>
+                    </div>
+                    <div class="timer">{{ticks}}</div>
+
+                </div>
+            </ng-template>
+
+            <ng-template #modalConfirm let-c="close" let-d="dismiss" class="modal-dialog-centered modal-center-vertical">
+                <div class="text-right mr-1">
+                    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="d('Cross click')">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center">
+                        <div *ngIf="selectedTurn.count < 1 && selectedTurn.confirm == true ">
+                            <div class="mb-4">
+                                <img src="../../assets/images/success.png" alt="">
+                            </div>
+                            <h4 class="modal-title pull-left text-modal mr-5 ml-5">
+                                ¡Se confirmó tu reserva!
+                                <br>
+                                Recuerda que tu reserva es de <strong>{{selectedTurn.hourStart}}</strong> - <strong>{{selectedTurn.hourEnd}}</strong>
+                            </h4>
+                        </div>
+                        <div *ngIf="selectedTurn.count >= 1 && selectedTurn.confirm == true">
+
+                            <h4 class="modal-title text-modal mr-5 ml-5 text-center">
+                                Tienes una reserva confirmada,
+                                <br>
+                                de <strong>{{selectedTurn.hourStart}}</strong> - <strong>{{selectedTurn.hourEnd}}</strong>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <div class="text-center ">
+                            <div *ngFor="let userItem of userList" class="d-inline">
+                                <div *ngIf="userItem.mail == me.mail" class="d-inline">
+                                    <button *ngIf="userItem.countReserved < 1" type="button" class="btn-agendar mt-3"
+                                        (click)="onSendCalendar(userItem)">Agendar </button>
+                                    <button *ngIf="userItem.countReserved >= 1" type="button" class="btn-agendar mt-3"
+                                        disabled (click)="onSendCalendar(userItem)">Agendar </button>
+                                    <div *ngIf="userItem.countReserved >= 1" class="event-notification">Se ha agendado
+                                        en tu calendario</div>
+                                </div>
+                            </div>
+                            <div class="text-center mt-4 mb-4">
+                                <div *ngFor="let userItem of userList">
+                                    <div *ngIf="userItem.mail == me.mail">
+                                        <div *ngFor="let inscriptionItem of inscriptionList">
+                                            <div *ngIf="inscriptionItem.therapist == selectedTurn.therapistId && inscriptionItem.hourStart == selectedTurn.hourStart && inscriptionItem.hourEnd == selectedTurn.hourEnd && inscriptionItem.mail == userItem.mail">
+                                                <button *ngIf="selectedTurn.therapistId == 1 " type="button" class="btn btn-cancelReserva"
+                                                    aria-label="Close" (click)="cancelTurn1(userItem,inscriptionItem)">Cancelar
+                                                    reserva
+                                                </button>
+                                                <button *ngIf="selectedTurn.therapistId == 2 " type="button" class="btn btn-cancelReserva"
+                                                    aria-label="Close" (click)="cancelTurn2(userItem,inscriptionItem)">Cancelar
+                                                    reserva
+                                                </button>
+                                                <button *ngIf="selectedTurn.therapistId == 3 " type="button" class="btn btn-cancelReserva"
+                                                    aria-label="Close" (click)="cancelTurn3(userItem,inscriptionItem)">Cancelar
+                                                    reserva
+                                                </button>
+                                                <div class="event-notification" *ngIf="showEventNotf == true">No
+                                                    olvides eliminar tu agenda anterior de tu calendario</div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+
+            <ng-template #modalSorry let-c="close" let-d="dismiss" class="modal-dialog-centered modal-center-vertical">
+                <div class="text-right mr-1">
+                    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="d('Cross click')">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center">
+                        <h4 class="modal-title pull-left text-modal mr-5 ml-5">
+                            <strong>{{userName}}, <br> ya has realizado una reserva.</strong>
+                            <br>
+                            Si deseas puedes modificarla ingresando a tu turno seleccionado.
+                        </h4>
+                    </div>
+                </div>
+            </ng-template>
+
+            <ng-template #modalTurnoOcupado let-c="close" let-d="dismiss" class="modal-dialog-centered">
+                <div class="text-right mr-1">
+                    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="d('Cross click')">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center">
+                        <h4 class="modal-title pull-left text-modal mr-5 ml-5">
+                            Lo siento
+                            <br> Este turno ya ha sido seleccionado
+                        </h4>
+                    </div>
+                </div>
+            </ng-template>
+
+        </div>
+        <div *ngIf="!currentBool[0].boolVal" class="not-available">
+            <div class="text-center">
+                <img src="./../../assets/images/inteligo.png" class="position-absolute h-75" alt="inteligo-side">
+                <div class="justify-content-md-center">
+                    <h1 class="mt-5 mx-5">LAS RESERVAS ESTARÁN DISPONIBLES A LAS 10:00 a.m</h1>
+                    <h1 class="mt-5 mx-5">¡GRACIAS!</h1>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="loading d-flex justify-content-center " *ngIf="!this.bool">
+    <div *ngIf="this.progres" class="progress bg-white d-flex align-items-center">
+        <img src="./../../assets/images/loading.gif" alt="gif-loading" class="img-fluid">
+    </div>
+    <div *ngIf="this.messageAuth" class="bg-white d-flex align-items-center">
+        <div class="jumbotron">
+            <h1 class="display-4">¡No has iniciado sesión!</h1>
+            <hr class="my-4">
+            <a class="btn btn-primary btn-lg go-home" href="/" role="button">Ir a vista principal</a>
+        </div>
+    </div>
+</div>

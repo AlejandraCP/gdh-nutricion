@@ -1,0 +1,122 @@
+<div class="log-out" *ngIf="show">
+    <nav class="navbar-light navbar-admin py-3" style="background-color: #e3f2fd;">
+        <div class="text-center">
+            <img src="../../assets/images/logo-gris.png" alt="logo Inteligo">
+        </div>
+        <div class="text-center title mt-3">
+                <span>Masajes Antiestrés</span>
+            </div>
+        <div class="text-center administradora mt-4 mb-4">
+            <div class="text-center mt-3"><i class="fa fa-user" aria-hidden="true"></i></div>
+            <div class="text-center mt-3">Administradora</div>
+        </div>
+        <div class="content-tabs">
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="tab-item active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true"><i  aria-hidden="true" class="fa fa-file-text-o pr-2"></i> Reportes 
+                    <a class="dropdown-toggle fa fa-angle-down pr-2" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">General</a>
+                        <a class="dropdown-item" href="#">Resumen</a>
+                    </div>
+                </a>
+                <a class="tab-item" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false"><i aria-hidden="true" class="fa fa-cog pr-2"></i>Configuración
+                    <a class="dropdown-toggle fa fa-angle-down pr-2" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                        <a class="dropdown-item" href="#">Habilitar turno</a>
+                        <a class="dropdown-item" href="#">Cambiar horario</a>
+                        <a class="dropdown-item" href="#">Cambiar página</a>
+                    </div>
+                </a>
+            </div>
+            <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">.qqq..</div>
+                <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">.qq..</div>
+            </div>
+            <a class="nav-link sign-out" href="/login" (click)="logoutUser()"><i class="fa fa-sign-out" aria-hidden="true"></i>Salir</a>
+        </div>
+    </nav>
+    <div class="content">
+        <div class="content-report">
+            <div class="container mt-4 mb-3" >
+                        <div class="row d-flex justify-content-start">            
+                            <div class="col-2 col-md-3 d-flex justify-content-around">
+                                <p class="mt-2 mr-2 font-weight-bold">Mes </p>
+                
+                                <select [(ngModel)]="selectedValue" (ngModelChange)="selectMonth($event)" class="custom-select">
+                                    <option *ngFor="let c of months" [ngValue]="c" [selected]='c.id === selectedValue.id' class="select-month py-4">{{c.month}}</option>
+                                </select>
+                            </div>
+                            <div class="col-2 col-md-3 d-flex justify-content-around">
+                                    <p class="mt-2 mr-2  font-weight-bold">Año </p>
+                                    <select *ngIf="years" [(ngModel)]="selectedValueYear" (ngModelChange)="selectYear($event)" class="custom-select">
+                                        <option *ngFor="let c of years" [ngValue]="c" [selected]='c.year === selectedValueYear' class="select-year py-4">{{c.year}}</option>
+                                    </select>
+                            </div>
+                            <div class="col-1 col-md-2">
+                                <button class="btn btn-search font-weight-bold" (click)="getRepostRequest(selectedValue, selectedValueYear)">Buscar</button>
+                            </div>
+                            <div class="col-12 col-md-12">
+                                <table class="table table-sm table-bordered table-hover bg-white mt-2 ">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center w-35">Nombre</th>
+                                            <th class="text-center w-35">Correo</th>
+                                            <th class="text-center" colspan="5">Asistencia</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of report2List">
+                                            <td class="pt-5px pl-2">{{item.name}} {{item.lastName}}</td>
+                                            <td class="pt-5px pl-2">{{item.mail}}</td>
+                                            <td class="pt-5px">
+                                                <div *ngFor="let v of arrayArray" class="d-inline">
+                                                    <div *ngIf="item.mail === v.mail" [ngClass]="{'reportAssist': item.mail !== v.mail}" class="reportAssist-item">
+                                                        <span *ngIf="v.assistance">
+                                                            <i *ngIf="v.boolMatch" [class.iconGreen]="v.boolMatch" class="fa fa-check-circle"
+                                                                aria-hidden="true"></i>
+                                                            <i *ngIf="!v.boolMatch" [class.iconRed]="!v.boolMatch" class="fa fa-times-circle"
+                                                                aria-hidden="true" placement="top" ngbPopover={{v.userAssist}}></i>
+                                                            P</span>
+                                                        <span *ngIf="!v.assistance">A</span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+        </div>
+        <div class="content-config" style="display:none">
+            <div class="container">
+                <div class="col-12 col-md-12 mt-4">
+                    <h3>Actualización de turnos</h3>
+                    <form class="form-inline mt-2">
+                        <label for="inlineFormInput">Hora Inicial</label>
+                        <input type="number" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Hora">
+                        <input type="number" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Minuto">
+                        
+                        <label for="inlineFormInputGroup">Hora Final</label>
+                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                            <!-- <div class="input-group-addon">@</div> -->
+                            <input type="number" class="form-control" id="inlineFormInputGroup" placeholder="Hora">
+                            <input type="number" class="form-control" id="inlineFormInputGroup" placeholder="Minuto">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Actualizar</button>
+                    </form>
+                </div>
+            </div>     
+        </div>
+    </div>
+    
+</div>
+
+<div class="d-flex justify-content-center" *ngIf="!show">
+        <div class="jumbotron jumbotron-fluid">
+                <div class="container">
+                  <h1 class="display-4">Esta dirección no esta disponible</h1>
+                        <a class="nav-link sign-out" href="javascript:window.history.back();"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Volver</a>
+                </div>
+              </div>
+</div>

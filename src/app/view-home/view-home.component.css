@@ -1,0 +1,246 @@
+.turn-btn{
+    color: #808080;
+    font-size: 18px;
+    padding: 2px 18px;
+    box-shadow: 0px 3px 3px #aaaaaa;
+    cursor: pointer;
+    width: 150px;
+}
+.turn-btn.active{
+    background-color: #004A8C;
+    color: #ffffff;
+}
+.turn-btn:disabled,
+.turn-btn[disabled], 
+.btn-agendar:disabled,
+.btn-agendar[disabled]
+{
+    border: 1px solid #F1F2F2;
+    background-color: #F1F2F2;
+    box-shadow: none;
+    color: #B3B3B3;
+    cursor: auto;
+}
+
+.therapist-content span{
+    color: #808CA5;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.logOut{
+    cursor: pointer;
+    color: #004A8C !important;
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
+.logOut:hover{
+    cursor: pointer;
+    color: #4F94D1 !important;
+}
+.btn-close{
+    font-size: 30px;
+}
+
+.text-modal{
+    color: #b4b4b4;
+    text-align: center;
+}
+
+.text-content{
+    color: #929090;
+}
+.timer{
+    color: #929090;
+    text-align: right;
+    background-image: url('../../assets/images/stopwatch.png');
+    background-repeat: no-repeat;
+    background-position: 95%;
+    background-size: 23px;
+}
+.lgnd-stt-turn{
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+    display: inline-block;
+    border-radius: 2px;
+    margin-right: 0.5rem;
+    margin-bottom: -2px;
+}
+.lgnd-stt-turn-ocup{
+    background-color: #F1F2F2;
+    border: 1px solid #cccccc;
+}
+.lgnd-stt-turn-avail{
+    background-color: #ffffff;
+    border: 1px solid #20619A;
+}
+.lgnd-stt-turn-navail{
+    background-color: #004A8C;
+}
+.lgnd-stt-turn-nconfirm{
+    background-color: #D2DEEA;
+}
+.btn-agendar, .btn-cancelReserva {
+    background-color: #FFFFFF;
+    height: 33px;
+    color: #808080;
+    font-size: 16px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-right: 28px;
+    cursor: pointer;
+    width: 200px;
+    border-radius: 0px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: 101%;
+}
+.btn-agendar{
+    border: 1px solid #004A8C;
+}
+.btn-cancelReserva{
+    border: 1px solid #e50246;
+}
+.btn-agendar{
+    background-image: url('../../assets/images/agendar.png');
+}
+.btn-cancelReserva{
+    background-image: url('../../assets/images/cancelReserva.png');
+}
+
+.turn-por-confirmar{
+    background-color: #D2DEEA;
+    border: 1px solid #D2DEEA;
+}
+.turn-ocupado{
+    border: 1px solid #F1F2F2;
+    background-color: #F1F2F2;
+}
+.turn-disponible{
+    background-color: #FFFFFF;
+    border: 1px solid #004A8C;
+}   
+.turn-seleccionado{
+    background-color: #004A8C !important;
+    border: 1px solid #004A8C !important;
+    color: #ffffff;
+}
+.event-notification{
+    color: #004A8C;
+    font-size: 13px;
+}
+
+.loading div{
+    height: 100vh;
+}
+ 
+.loading div img{
+    height: 15vh;
+}
+
+.loading div div {
+    height: 40vh;
+}
+
+.loading div div a{
+    background-color: var(--dark-blue);
+    border-color: var(--dark-blue);
+}
+.modal-open .modal{
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+.modal-center-vertical{
+    max-width: 50% !important;
+}
+.d-view{
+    display: none;
+}
+.therapist-container-sm{
+    color:  #808080;
+    text-align: center;
+    font-size: 12px;
+    letter-spacing: 0.3px;
+}
+
+.therapist-container-sm span:nth-child(2){
+    font-weight: 600;
+    font-size: 20px;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+.content-lgnd{
+    padding-top: 57px;
+}
+.item-lgnd{
+    min-width: 150px;
+    margin-bottom: 20%;
+    margin-left: 10px;
+    color: #808080;
+}
+.item-logOut{
+    bottom: 0;
+    position: absolute;
+}
+
+@media (min-width: 768px) {
+    .m-view{
+        display: none;
+    }
+    .d-view{
+        display: block;
+    }
+}
+
+/* view not available */
+.not-available {
+    width: 100%;
+}
+
+.not-available::after {
+    content: "";
+    background: #30497B;
+    opacity: 2,5;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;   
+}
+
+.not-available h1 {
+    color:rgba(255, 255, 255, 0.904);
+    font-size:40px;
+}
+
+.not-available div {
+    height: 90vh;
+}
+
+.not-available div img {
+    left: 20px;
+    bottom: 15%;
+}
+
+.not-available div div {
+    margin-left: 17%;
+    margin-right: 17%;
+    padding-top: 13%;
+}
+
+@media (max-width: 768px) {
+    .not-available h1 {
+        font-size: 30px;
+    }
+    .not-available div div {
+        margin-left: 3%;
+        margin-right: 3%;
+        padding-top: 25%;
+    }
+}
+
+

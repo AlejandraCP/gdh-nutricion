@@ -1,0 +1,119 @@
+.iconRed {
+  color: #c66c56;
+}
+
+.iconGreen {
+  color: #c0dc67;
+}
+
+div.administradora i {
+  font-size: 1.35rem;
+  background-color: #ededed;
+  border-radius: 50%;
+  padding-top: 0.50rem;
+  padding-bottom: 0.50rem;
+  padding-left: 0.65rem;
+  padding-right: 0.60rem;
+  color: var(--title-gray);
+}
+
+div.title  {
+  color: #5c6579;
+}
+
+div.administradora {
+  color: var(--title-gray);
+}
+
+.reportAssist{
+  display: inline-block;
+  border-right: 1px solid #dee2e6;
+}
+
+.reportAssist-item{
+  display: inline-block;
+  width: 70px;
+  line-height: 35px;
+  text-align: center;
+  margin-top: -0.3rem;
+  margin-bottom: -0.3rem;
+  border-right: 1px solid #dee2e6;
+}
+
+.btn-search {
+  background-color: #1b3260;
+  color: #ebecee;
+}
+
+p.mt-2, .sign-out {
+  color: #1b3260;
+}
+
+.w-35 {
+  width: 35% !important;
+}
+
+.pt-5px {
+  padding-top: 5px;
+}
+
+option.select-year, option.select-month {
+  font-size: 1.095rem !important;
+} 
+.navbar-admin{
+  width: 180px;
+  min-height: 100vh;
+  transition: all 0.3s;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+}
+.content{
+  margin-left: 180px;
+}
+thead tr th:nth-child(1), tbody tr td:nth-child(1){
+  width: 28% !important;
+}
+thead tr th:nth-child(2), tbody tr td:nth-child(2){
+  width: 28% !important;
+}
+thead tr th:nth-child(3), tbody tr td:nth-child(3){
+  width: 44% !important;
+}
+div a.tab-item.active,  div a.tab-item:hover{
+  border-left: 6px solid #2C79BE;
+  color: #2C79BE;
+}
+div a.tab-item {
+  display: block;
+  border-left: 5px solid #888E9F;
+  color: #888E9F;
+  padding-bottom: 8px;
+  padding-top: 8px;
+  text-align: center;
+  text-decoration: none;
+}
+div a.tab-item:nth-child(1) {
+  border-top: 1px solid#d3d5da;
+  border-bottom: 1px solid #d3d5da;
+}
+div a.tab-item:nth-child(2) {
+  border-bottom: 1px solid #d3d5da;
+}
+.sign-out{
+  position: absolute;
+  bottom: 0;
+}
+@media (min-width: 576px){
+    .form-inline label {
+      padding-right: 10px;
+  }
+}
+.dropdown-toggle::after{
+      border-right: 0px; 
+      border-left: 0px;
+}
+
+
+

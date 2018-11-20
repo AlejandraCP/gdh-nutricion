@@ -1,0 +1,11 @@
+.main-container {
+  height: 100vh;
+}
+
+i.fa-sign-out {
+  font-size: 1.2rem;
+}
+
+.log-out a {
+  color: #30497B;
+}

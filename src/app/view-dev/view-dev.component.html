@@ -1,0 +1,126 @@
+<div *ngIf="show" class="main-container">
+  <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+    <div class="col-3 text-left coordinadora">
+      <img src="../../assets/images/logo-gris.png" alt="logo Inteligo">
+    </div>
+    <div class="col-6 text-center title">
+      <span>Masajes Antiestrés</span>
+      <span>| Dev</span>
+    </div>
+    <div class="col-3 text-right log-out">
+      <a href="/login" (click)="logoutUser()"><i class="fa fa-sign-out" aria-hidden="true"></i>Salir</a>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="row pt-3">
+      <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 text-center mt-4">
+        <button class="btn btn-lg btn-confirm w-auto" (click)="deleteListInscription()">Borrar Inscripciones</button>
+      </div>
+      <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 text-center mt-4">
+        <button class="btn btn-lg btn-confirm w-auto" (click)="updateTurnsT1()">Resetear turnos</button>
+      </div>
+      <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 text-center mt-4">
+        <button class="btn btn-lg btn-confirm w-auto" (click)="updateUserReset()">Resetear Usuarios</button>
+      </div>
+    </div>
+
+    <div class="row pt-3">
+      <div *ngIf="this.currentBool" class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 text-center mt-4">
+        <div class="w-auto btn py-2 content-switch">
+          <span *ngIf="currentBool[0].boolVal" class="mr-4 pt-2 text-turno">Turnos habilitados</span>
+          <span *ngIf="!currentBool[0].boolVal" class="text-turno pt-2">Turnos deshabilitados</span>
+          <label class="switch">
+            <input type="checkbox" [attr.checked]="currentBool[0].boolVal ? 'checked' : null" (click)="updateCurentBool(currentBool[0].$key, currentBool[0].boolVal)">
+            <span class="slider round"></span>
+          </label>
+        </div>
+
+      </div>
+    </div>
+    <div class="row pt-3">
+      <div *ngIf="terapeuta1" class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 text-center mt-4 state-turn">
+        <h4>Turnos - Terapeuta 1</h4>
+        <div *ngFor="let turns1 of terapeuta1">
+          <div class="w-200 btn content-switch">
+            <span class="mr-3 text-turno d-inline-block w-50">{{turns1.hourStart}} - {{turns1.hourEnd}} </span>
+            <label class="switch">
+              <input type="checkbox" [attr.checked]="turns1.available ? 'checked' : null" (click)="changeStateAvailableT1(turns1.$key, turns1.available)">
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+
+      </div>
+      <div *ngIf="terapeuta2" class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 text-center mt-4 state-turn">
+        <h4>Turnos - Terapeuta 2</h4>
+        <div *ngFor="let turns2 of terapeuta2">
+          <div class="w-200 btn content-switch">
+            <span class="mr-3 text-turno d-inline-block w-50">{{turns2.hourStart}} - {{turns2.hourEnd}} </span>
+            <label class="switch">
+              <input type="checkbox" [attr.checked]="turns2.available ? 'checked' : null" (click)="changeStateAvailableT2(turns2.$key, turns2.available)">
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+
+      </div>
+      <div *ngIf="terapeuta3" class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 text-center mt-4 state-turn">
+        <h4>Turnos - Terapeuta 3</h4>
+        <div *ngFor="let turns3 of terapeuta3">
+          <div class="w-200 btn content-switch">
+            <span class="mr-3 text-turno d-inline-block w-50">{{turns3.hourStart}} - {{turns3.hourEnd}} </span>
+            <label class="switch">
+              <input type="checkbox" [attr.checked]="turns3.available ? 'checked' : null" (click)="changeStateAvailableT3(turns3.$key, turns3.available)">
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row pt-3">
+
+      <table class="table table-bordered table-hover">
+        <thead class="text-center">
+          <tr>
+              <th colspan="4">Usaron el beneficio</th>
+          </tr>
+          <tr>
+            <td colspan="4">200</td>
+          </tr>
+          
+        </thead>
+        
+        <tbody class="text-center">
+            <tr>
+              <td>Nombre correcto</td>
+              <td>Nombre Incorrecto</td>
+              <td>Asistieron</td>
+              <td>No asistieron</td>
+            </tr>
+            <tr>
+              <td>120</td>
+              <td>80</td>
+              <td>180</td>
+              <td>20</td>
+            </tr>
+          </tbody>
+      </table>
+      
+    </div>
+
+
+  </div>
+
+
+</div>
+<div class="d-flex justify-content-center" *ngIf="!show">
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4">Esta dirección no esta disponible</h1>
+      <a class="nav-link sign-out" href="javascript:window.history.back();"><i class="fa fa-angle-double-left"
+          aria-hidden="true"></i> Volver</a>
+    </div>
+  </div>
+</div>
