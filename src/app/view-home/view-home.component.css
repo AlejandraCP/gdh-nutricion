@@ -173,6 +173,7 @@
     margin-left: 20px;
 }
 .content-lgnd{
+    display: none;
     padding-top: 57px;
 }
 .item-lgnd{
@@ -193,6 +194,9 @@
     .d-view{
         display: block;
     } */
+    .content-lgnd {
+        display: block;
+    }
 }
 
 /* view not available */

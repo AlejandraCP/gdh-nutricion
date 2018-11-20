@@ -29,7 +29,7 @@
                             </div>
 
                         </div>
-                        <div class="col-md-8 col-sm-2">
+                        <div class="col-md-8 col-12">
                             <div class="content">
                                 <div class="container mt-3 mb-3 therapist-content">
                                     <div class="row">
@@ -104,94 +104,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- <div class="m-view">
-                <div *ngIf="returnThis">
-                    <div *ngFor="let userItem of userList">
-                        <div *ngIf="userItem.mail == me.mail && currentTime">
-                            <ngb-carousel>
-                                <ng-template ngbSlide>
-                                    <div class="therapist-container-sm mt-4 mb-4">
-                                        <span>Turnos</span>
-                                    </div>
-                                    <div *ngIf="userItem.reserved == false" class="col-12 text-center">
-                                        <div *ngFor="let item1 of terapeuta1" class="mb-2 turn-container">
-                                            <button *ngIf="item1.confirm == false && item1.available == false && item1.userName < 1"
-                                                disabled class="turn-btn">
-                                                {{item1.hourStart}} - {{item1.hourEnd}} </button>
-                                            <button *ngIf="item1.confirm == false && item1.available == true && item1.userName < 1"
-                                                class="turn-btn turn-disponible" (click)="onSelectTurn1(userItem,item1,modalSelectTurn)" [disabled]='currentTime[0].time > item1.hour24'>
-                                                {{item1.hourStart}} - {{item1.hourEnd}} </button>
-                                            <button *ngIf="item1.confirm == true && item1.available == false  && item1.userName == name"
-                                                class="turn-btn turn-seleccionado" (click)="onSelectTurn1(userItem,item1,modalSelectTurn)" [disabled]='currentTime[0].time > item1.hour24'>
-                                                {{item1.hourStart}} - {{item1.hourEnd}} </button>
-                                            <button *ngIf="(item1.confirm == true  && item1.available == false && item1.userName != name)  || (item1.confirm == true && item1.available == true  && item1.userName != name)"
-                                                disabled class="turn-btn">
-                                                {{item1.hourStart}} - {{item1.hourEnd}} </button>
-                                        </div>
-                                    </div>
-                                    <div *ngIf="userItem.reserved == true" class="col-12 text-center">
-                                        <div *ngFor="let item1 of terapeuta1" class="mb-2 turn-container">
-                                            <button *ngIf="item1.confirm == false && item1.userName < 1" class="turn-btn turn-disponible"
-                                                (click)="onSelectTurn1(userItem,item1,modalSorry)" [disabled]='currentTime[0].time > item1.hour24'>
-                                                {{item1.hourStart}} - {{item1.hourEnd}} </button>
-                                            <button *ngIf="item1.confirm == true && item1.userName == name" class="turn-btn turn-seleccionado"
-                                                (click)="onSelectTurn1(userItem,item1,modalConfirm)" [disabled]='currentTime[0].time > item1.hour24'>
-                                                {{item1.hourStart}} - {{item1.hourEnd}} </button>
-                                            <button *ngIf="item1.confirm == true && item1.userName != name" disabled
-                                                class="turn-btn">
-                                                {{item1.hourStart}} - {{item1.hourEnd}} </button>
-                                        </div>
-                                    </div>
-                                </ng-template>
-                            </ngb-carousel>
-                        </div>
-                    </div>
-                </div>
-                <div *ngIf="!returnThis && currentTime">
-                    <ngb-carousel>
-                        <ng-template ngbSlide>
-                            <div class="therapist-container-sm mt-4 mb-4">
-                                <span>Turnos</span>
-                            </div>
-                            <div class="col-12 text-center">
-                                <div *ngFor="let item1 of terapeuta1" class="mb-2 turn-container">
-                                    <button *ngIf="item1.confirm == false && item1.available == false && item1.userName < 1"
-                                        disabled class="turn-btn">
-                                        {{item1.hourStart}} - {{item1.hourEnd}} </button>
-                                    <button *ngIf="item1.confirm == false && item1.available == true && item1.userName < 1"
-                                        class="turn-btn turn-disponible" (click)="onSelectTurn1(userItem,item1,modalSelectTurn)" [disabled]='currentTime[0].time > item1.hour24'>
-                                        {{item1.hourStart}} - {{item1.hourEnd}} </button>
-                                    <button *ngIf="item1.confirm == true && item1.available == false && item1.userName == name"
-                                        class="turn-btn turn-seleccionado" (click)="onSelectTurn1(userItem,item1,modalSelectTurn)" [disabled]='currentTime[0].time > item1.hour24'>
-                                        {{item1.hourStart}} - {{item1.hourEnd}} </button>
-                                    <button *ngIf="item1.confirm == true && item1.userName != name" disabled class="turn-btn">
-                                        {{item1.hourStart}} - {{item1.hourEnd}} </button>
-                                </div>
-                            </div>
-                        </ng-template>
-                    </ngb-carousel>
-                </div>
-                <div class="container-fluid mt-4">
-                    <div class="row text-content mt-4">
-                        <div class="col-md-3 col-3 text-center mt-4">
-                            <div class="lgnd-stt-turn lgnd-stt-turn-avail"></div><span>Disponible</span>
-                        </div>
-                        <div class="col-md-3 col-3 text-center mt-4">
-                            <div class="lgnd-stt-turn lgnd-stt-turn-navail"></div><span>Seleccionado</span>
-                        </div>
-                        <div class="col-md-3 col-4 text-center mt-4">
-                            <div class="lgnd-stt-turn lgnd-stt-turn-ocup"></div><br><span>Ocupado</span>
-                        </div>
-                        <div class="col-md-3 col-2 mt-4">
-                            <div class="text-right">
-                                <a class="logOut" (click)="onLogout()"> Salir <img src="../../assets/images/logout.png"
-                                        alt=""></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
 
             <ng-template #modalSelectTurn let-c="close" let-d="dismiss" class="modal-dialog-centered modal-center-vertical">
                 <div class="text-right mr-1">
