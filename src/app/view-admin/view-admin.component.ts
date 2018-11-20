@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { AuthFirebaseService } from "./../services/auth-firebase.service";
-import { ReportService } from "../services/report.service";
 import { UserService } from "./../services/user.service";
 import { Report2Service } from "./../services/report2.service";
 import { TurnosService } from "./../services/turnos.service";
@@ -69,7 +68,6 @@ export class ViewAdminComponent implements OnInit {
 
   constructor(
     private authFirebaseService: AuthFirebaseService,
-    private reportService: ReportService,
     private report2Service: Report2Service,
     private turnosService: TurnosService,
     private sharingDataService: SharingDataService
@@ -181,7 +179,6 @@ export class ViewAdminComponent implements OnInit {
       }
     });
 
-    //get reports2
     //get reports2
     this.report2Service
       .getReports2()
@@ -342,30 +339,6 @@ export class ViewAdminComponent implements OnInit {
           this.terapeuta1.push(x);
         });
       });
-
-    this.turnosService
-      .getTurnosT2()
-      .snapshotChanges()
-      .subscribe(item => {
-        this.terapeuta2 = [];
-        item.forEach(elem => {
-          let x = elem.payload.toJSON();
-          x["$key"] = elem.key;
-          this.terapeuta2.push(x);
-        });
-      });
-
-    this.turnosService
-      .getTurnosT3()
-      .snapshotChanges()
-      .subscribe(item => {
-        this.terapeuta3 = [];
-        item.forEach(elem => {
-          let x = elem.payload.toJSON();
-          x["$key"] = elem.key;
-          this.terapeuta3.push(x);
-        });
-      });
   }
 
   getDates(x) {
@@ -523,13 +496,6 @@ export class ViewAdminComponent implements OnInit {
     this.turnosService.changeStateAvailableT1($key, !available);
   }
 
-  changeStateAvailableT2($key, available) {
-    this.turnosService.changeStateAvailableT2($key, !available);
-  }
-
-  changeStateAvailableT3($key, available) {
-    this.turnosService.changeStateAvailableT3($key, !available);
-  }
   updateSchedule(hourStart) {
     let sumaHour;
     this.turnosService.deleteTurns();
@@ -621,8 +587,6 @@ export class ViewAdminComponent implements OnInit {
         count: 0
       };
       this.turnosService.inserTurn1(turno1);
-      this.turnosService.inserTurn2(turno2);
-      this.turnosService.inserTurn3(turno3);
     });
 
     for (let index = 0; index < this.hourCoorList.length; index++) {

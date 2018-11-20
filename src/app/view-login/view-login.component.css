@@ -21,7 +21,7 @@
 
 .view-login div.row div:nth-child(2) {
   height: 100vh;
-  background-image: url("../../assets/images/img-view-one.png");
+  background-image: url("../../assets/images/nutricion-home.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position-x: -150px;
@@ -41,7 +41,7 @@
   }
   .view-login div.row {
     height: 100vh;
-    background-image: url("../../assets/images/img-view-one.png");
+    background-image: url("../../assets/images/nutricion-home.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     /* color: #ffffff70; */

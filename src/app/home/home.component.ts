@@ -13,8 +13,6 @@ import { HomeService } from './home.service';
 import { AuthService } from '../auth/auth.service';
 import { TurnosService } from '../services/turnos.service';
 import { InscriptionService } from '../services/inscription.service';
-import { ReportService } from '../services/report.service';
-
 
 // models
 import { InscripcionModel } from '../models/inscriptions';
@@ -88,9 +86,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     private homeService: HomeService,
     private authService: AuthService,
     private turnoService: TurnosService,
-    private inscriptionService: InscriptionService,
-    private reportService: ReportService
-  ) { }
+    private inscriptionService: InscriptionService,  ) { }
 
   ngOnInit() {
     this.subsGetMe = this.homeService.getMe().subscribe(me => {
@@ -116,18 +112,6 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.inscriptionList.push(x);
       });
     });    
-
-    // get reports
-    this.reportService.getReports()
-    .snapshotChanges()
-    .subscribe(item => {
-      this.reportList = [];
-      item.forEach(elem => {
-        let x = elem.payload.toJSON();
-        x['$key'] = elem.key;
-        this.reportList.push(x)
-      })
-    })
   }
 
   ngOnDestroy() {

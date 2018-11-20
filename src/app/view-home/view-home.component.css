@@ -157,7 +157,7 @@
     max-width: 50% !important;
 }
 .d-view{
-    display: none;
+    display: block;
 }
 .therapist-container-sm{
     color:  #808080;
@@ -187,12 +187,12 @@
 }
 
 @media (min-width: 768px) {
-    .m-view{
+    /* .m-view{
         display: none;
     }
     .d-view{
         display: block;
-    }
+    } */
 }
 
 /* view not available */

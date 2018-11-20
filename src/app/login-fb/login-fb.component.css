@@ -25,7 +25,7 @@
 
 .view-login-fb div.row div:nth-child(2).bg-img {
   height: 100vh;
-  background-image: url("../../assets/images/img-view-one.png");
+  background-image: url("../../assets/images/nutricion-home.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position-x: -150px;
@@ -37,7 +37,7 @@
   }
   .view-login-fb:first-child {
     height: 100vh;
-    background-image: url("../../assets/images/img-view-one.png");
+    background-image: url("../../assets/images/nutricion-home.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     color: #ffffff70;

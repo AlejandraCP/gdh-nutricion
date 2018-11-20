@@ -3,7 +3,6 @@ import { AuthFirebaseService } from './../services/auth-firebase.service';
 
 // services
 import { InscriptionService } from '../services/inscription.service';
-import { ReportService } from '../services/report.service';
 import { Report2Service } from './../services/report2.service';
 import { UserService } from './../services/user.service';
 import { SharingDataService } from '../services/sharing-data.service';
@@ -31,16 +30,12 @@ export class ViewCoorComponent implements OnInit {
   public show: boolean;
   public actualDate: string;
   public therapist1Choose: boolean;
-  public therapist2Choose: boolean;
-  public therapist3Choose: boolean;
   public test: any;
   public assistTrue = true;
   public assistFalse = false;
   public keyUser: string;
   inscriptionList: any[];
   therapist1List: any[];
-  therapist2List: any[];
-  therapist3List: any[];
   report2List: any[];
   reporListDate: any[];
   hourCoorList: any[];
@@ -50,7 +45,6 @@ export class ViewCoorComponent implements OnInit {
   constructor(
     private authFirebaseService: AuthFirebaseService,
     private inscriptionService: InscriptionService,
-    private reportService: ReportService,
     private report2Service: Report2Service,
     private userService: UserService,
     public sharingDataService: SharingDataService
@@ -104,53 +98,22 @@ export class ViewCoorComponent implements OnInit {
       .subscribe(item => {
         this.inscriptionList = [];
         this.therapist1List = [];
-        this.therapist2List = [];
-        this.therapist3List = [];
         item.forEach(elem => {
           let x = elem.payload.toJSON();
           x["$key"] = elem.key;
           if (x['date'] === this.actualDate) {
-            if (x['therapist'] === 1) {
               for (const i in this.hourCoorList) {
                 if (x['hourStart'] === this.hourCoorList[i].turn) {
                   x['order'] = parseInt(i);
                   this.therapist1List.push(x);
                 }
               }
-            } else if (x['therapist'] === 2) {
-              for (const i in this.hourCoorList) {
-                if (x['hourStart'] === this.hourCoorList[i].turn) {
-                  x['order'] = parseInt(i);
-                  this.therapist2List.push(x);
-                }
-              }
-            } else if (x['therapist'] === 3) {
-              for (const i in this.hourCoorList) {
-                if (x['hourStart'] === this.hourCoorList[i].turn) {
-                  x['order'] = parseInt(i);
-                  this.therapist3List.push(x);
-                }
-              }
-            }
             this.inscriptionList.push(x);
             this.therapist1List.sort(this.sortOrder);
-            this.therapist2List.sort(this.sortOrder);
-            this.therapist3List.sort(this.sortOrder);
           }          
         });
       });
 
-    // get reports
-    this.reportService.getReports()
-      .snapshotChanges()
-      .subscribe(item => {
-        this.reportList = [];
-        item.forEach(elem => {
-          let x = elem.payload.toJSON();
-          x['$key'] = elem.key;
-          this.reportList.push(x)
-        })
-    });
 
     //get reports2
     this.report2Service.getReports2()
@@ -166,8 +129,6 @@ export class ViewCoorComponent implements OnInit {
 
 
     this.therapist1Choose = true;
-    this.therapist2Choose = false;
-    this.therapist3Choose = false;
   }
 
   logoutUser() {
@@ -177,25 +138,6 @@ export class ViewCoorComponent implements OnInit {
   sortOrder(a,b) {
     return a.order - b.order;
   }
-
-  chooseTerap1() {
-    this.therapist1Choose = true;
-    this.therapist2Choose = false;
-    this.therapist3Choose = false;
-  }
-
-  chooseTerap2() {
-    this.therapist1Choose = false;
-    this.therapist2Choose = true;
-    this.therapist3Choose = false;
-  }
-
-  chooseTerap3() {
-    this.therapist1Choose = false;
-    this.therapist2Choose = false;
-    this.therapist3Choose = true;
-  }
-
 
   addRegister(date,hourStart,hourEnd,assistance,userAssist, stringVal,userName,boolMatch,boolAny, therapist,$key, type, displayName, mail) {
    

@@ -28,14 +28,11 @@ import { HttpService } from './shared/http.service';
 import { AuthService } from './auth/auth.service';
 import { HomeService } from './home/home.service';
 import { TurnosService } from './services/turnos.service';
-import { ReportService } from './services/report.service';
 import { Report2Service } from './services/report2.service';
 import { InscriptionService } from './services/inscription.service';
 import { AuthFirebaseService } from './services/auth-firebase.service';
 import { UserService } from './services/user.service';
 import { SharingDataService } from './services/sharing-data.service';
-import { TurnsStateService } from './services/turns-state.service';
-
 
 
 // import angular firebase
@@ -96,13 +93,11 @@ AngularFireAuthModule,
     HomeService,
     InscriptionService,
     TurnosService,
-    ReportService,
     Report2Service,
     InscriptionService,
     AuthFirebaseService,
     UserService,
-    SharingDataService,
-    TurnsStateService
+    SharingDataService
   ],
   bootstrap: [
     AppComponent

@@ -15,7 +15,6 @@ import { HomeService } from "../home/home.service";
 import { AuthService } from "../auth/auth.service";
 import { TurnosService } from "./../services/turnos.service";
 import { InscriptionService } from "./../services/inscription.service";
-import { ReportService } from "./../services/report.service";
 import { UserService } from "./../services/user.service";
 import { Report2Service } from "./../services/report2.service";
 import { SharingDataService } from "./../services/sharing-data.service";
@@ -54,8 +53,6 @@ export class ViewHomeComponent implements OnInit {
   dateIni: any;
   dateFin: any;
   terapeuta1: any[];
-  terapeuta2: any[];
-  terapeuta3: any[];
   inscriptionList: any[];
   reportList: any[];
   report2List: any[];
@@ -77,7 +74,7 @@ export class ViewHomeComponent implements OnInit {
   modalConfirm: NgbModalRef;
   modalOnMessage: NgbModalRef;
   modalUser: any;
-  therapistIds: Array<string> = ["terapeuta1", "terapeuta2", "terapeuta3"];
+  therapistIds: Array<string> = ["terapeuta1"];
   returnThis: boolean = false;
   mail: string;
   ticks: number;
@@ -132,7 +129,6 @@ export class ViewHomeComponent implements OnInit {
     private authService: AuthService,
     private turnoService: TurnosService,
     private inscriptionService: InscriptionService,
-    private reportService: ReportService,
     private report2Service: Report2Service,
     private userService: UserService,
     private modalService: NgbModal,
@@ -226,30 +222,6 @@ export class ViewHomeComponent implements OnInit {
         });
       });
 
-    this.turnoService
-      .getTurnosT2()
-      .snapshotChanges()
-      .subscribe(item => {
-        this.terapeuta2 = [];
-        item.forEach(elem => {
-          let x = elem.payload.toJSON();
-          x["$key"] = elem.key;
-          this.terapeuta2.push(x);
-        });
-      });
-
-    this.turnoService
-      .getTurnosT3()
-      .snapshotChanges()
-      .subscribe(item => {
-        this.terapeuta3 = [];
-        item.forEach(elem => {
-          let x = elem.payload.toJSON();
-          x["$key"] = elem.key;
-          this.terapeuta3.push(x);
-        });
-      });
-
     // get inscriptions
     this.inscriptionService
       .getInscriptions()
@@ -260,19 +232,6 @@ export class ViewHomeComponent implements OnInit {
           let x = elem.payload.toJSON();
           x["$key"] = elem.key;
           this.inscriptionList.push(x);
-        });
-      });
-
-    // get reports
-    this.reportService
-      .getReports()
-      .snapshotChanges()
-      .subscribe(item => {
-        this.reportList = [];
-        item.forEach(elem => {
-          let x = elem.payload.toJSON();
-          x["$key"] = elem.key;
-          this.reportList.push(x);
         });
       });
 
@@ -394,7 +353,7 @@ export class ViewHomeComponent implements OnInit {
     user.countReserved++;
     user.countAgendas++;
     user.messageEvent =
-      "Masajes antiestrés - Terapeuta " + this.selectedTurn.therapistId;
+      "Consulta Nutricional - Terapeuta " + this.selectedTurn.therapistId;
     this.updateUser(user.$key, user);
 
     let send;
@@ -406,7 +365,7 @@ export class ViewHomeComponent implements OnInit {
         "-" +
         this.selectedTurn.hourEnd,
       subject:
-        "Masajes antiestrés - Terapeuta " + this.selectedTurn.therapistId,
+        "Consulta Nutricional - Terapeuta " + this.selectedTurn.therapistId,
       start: {
         dateTime: this.dateIni,
         timeZone: "GMT-0500"
@@ -479,118 +438,6 @@ export class ViewHomeComponent implements OnInit {
     });
   }
 
-  onSelectTurn2(user: UserModel, turn: TurnModel, modal): void {
-
-    let userExist = false;
-
-    let report2: Report2Model = {
-      $key: "",
-      dates: ["report1234"],
-      name: this.userName,
-      lastName: this.lastName,
-      mail: this.mail
-    };
-
-    this.user.mail = this.me.mail;
-
-    this.userList.forEach(elem => {
-      if (elem.mail === this.me.mail) {
-        userExist = true;
-      }
-    });
-
-    if (userExist == false) {
-      this.insertUser(this.user);
-      this.insertReport2(report2);
-    }
-    this.selectedTurn = turn;
-    this.selectedTurn.available = false;
-    this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
-
-    this.modalSelectTurn = this.modalService.open(modal);
-    this.modalSelectTurn.result.then(
-      result => {
-        this.selectedTurn.available = true;
-        this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
-        this.subsCounter.unsubscribe();
-        this.closeResult = `Closed with: ${result}`;
-      },
-      reason => {
-        this.selectedTurn.available = true;
-        this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
-        this.subsCounter.unsubscribe();
-        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      }
-    );
-
-    let timer;
-    this.ticks = 60;
-
-    timer = Observable.timer(1000, 1000);
-    this.subsCounter = timer.subscribe(t => {
-      this.ticks--;
-      if (this.ticks == 0) {
-        this.modalSelectTurn.close();
-      }
-    });
-  }
-
-  onSelectTurn3(user: UserModel, turn: TurnModel, modal): void {
-
-    let userExist = false;
-
-    let report2: Report2Model = {
-      $key: "",
-      dates: ["report1234"],
-      name: this.userName,
-      lastName: this.lastName,
-      mail: this.mail
-    };
-
-    this.user.mail = this.me.mail;
-
-    this.userList.forEach(elem => {
-      if (elem.mail === this.me.mail) {
-        userExist = true;
-      }
-    });
-
-    if (userExist == false) {
-      this.insertUser(this.user);
-      this.insertReport2(report2);
-    }
-
-    this.selectedTurn = turn;
-    this.selectedTurn.available = false;
-    this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
-
-    this.modalSelectTurn = this.modalService.open(modal);
-    this.modalSelectTurn.result.then(
-      result => {
-        this.selectedTurn.available = true;
-        this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
-        this.subsCounter.unsubscribe();
-        this.closeResult = `Closed with: ${result}`;
-      },
-      reason => {
-        this.selectedTurn.available = true;
-        this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
-        this.subsCounter.unsubscribe();
-        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      }
-    );
-    let timer;
-    this.ticks = 60;
-
-    timer = Observable.timer(1000, 1000);
-    this.subsCounter = timer.subscribe(t => {
-      this.ticks--;
-      if (this.ticks == 0) {
-        this.modalSelectTurn.close();
-      }
-    });
-  }
-
   onConfirmTurn1(user: UserModel, x, modal, modalTurnoOcupado) {
     if (this.selectedTurn.confirm == true) {
       this.modalSelectTurn.close();
@@ -639,115 +486,6 @@ export class ViewHomeComponent implements OnInit {
           this.selectedTurn.available = true;
           this.selectedTurn.count++;
           this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
-          this.subsCounter.unsubscribe();
-        }
-      );
-    }
-  }
-
-  onConfirmTurn2(user: UserModel, x, modal, modalTurnoOcupado) {
-    if (this.selectedTurn.confirm == true) {
-      this.modalSelectTurn.close();
-      this.modalOnMessage = this.modalService.open(modalTurnoOcupado);
-      this.modalOnMessage.result.then(
-        result => {
-          this.closeResult = `Closed with: ${result}`;
-          this.subsCounter.unsubscribe();
-        },
-        reason => {
-          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-          this.subsCounter.unsubscribe();
-        }
-      );
-    } else {
-      this.selectedUser = user;
-      this.selectedUser.reserved = true;
-
-      this.selectedTurn.confirm = true;
-      this.selectedTurn.userName = this.name;
-
-      this.primero.dateInscription = this.getDateFull();
-      this.primero.hourStart = this.selectedTurn.hourStart;
-      this.primero.hourEnd = this.selectedTurn.hourEnd;
-      this.primero.therapist = this.selectedTurn.therapistId;
-      this.primero.userAssist = this.userName;
-      this.primero.userName = this.name;
-      this.primero.displayName = this.displayName;
-      this.primero.mail = this.mail;
-
-      this.insertInscription(x);
-      this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
-      this.updateUser(user.$key, this.selectedUser);
-
-      this.modalSelectTurn.close();
-      this.modalConfirm = this.modalService.open(modal);
-      this.modalConfirm.result.then(
-        result => {
-          this.closeResult = `Closed with: ${result}`;
-          this.selectedTurn.count++;
-          this.selectedTurn.available = true;
-          this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
-          this.subsCounter.unsubscribe();
-        },
-        reason => {
-          this.selectedTurn.count++;
-          this.selectedTurn.available = true;
-          this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
-          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-          this.subsCounter.unsubscribe();
-        }
-      );
-    }
-  }
-
-  onConfirmTurn3(user: UserModel, x, modal, modalTurnoOcupado) {
-    if (this.selectedTurn.confirm == true) {
-      this.modalSelectTurn.close();
-      this.modalOnMessage = this.modalService.open(modalTurnoOcupado);
-      this.modalOnMessage.result.then(
-        result => {
-          this.closeResult = `Closed with: ${result}`;
-          this.subsCounter.unsubscribe();
-        },
-        reason => {
-          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-          this.subsCounter.unsubscribe();
-        }
-      );
-    } else {
-      this.selectedUser = user;
-      this.selectedUser.reserved = true;
-      this.selectedTurn.confirm = true;
-      this.selectedTurn.userName = this.name;
-
-      this.primero.dateInscription = this.getDateFull();
-      this.primero.hourStart = this.selectedTurn.hourStart;
-      this.primero.hourEnd = this.selectedTurn.hourEnd;
-      this.primero.therapist = this.selectedTurn.therapistId;
-      this.primero.userAssist = this.userName;
-      this.primero.userName = this.name;
-      this.primero.displayName = this.displayName;
-      this.primero.mail = this.mail;
-
-      this.insertInscription(x);
-      this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
-      this.updateUser(user.$key, this.selectedUser);
-
-      this.modalSelectTurn.close();
-      this.modalConfirm = this.modalService.open(modal);
-      this.modalConfirm.result.then(
-        result => {
-          this.selectedTurn.available = true;
-          this.selectedTurn.count++;
-          this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
-          this.closeResult = `Closed with: ${result}`;
-          this.subsCounter.unsubscribe();
-        },
-        reason => {
-          this.selectedTurn.available = true;
-          this.selectedTurn.count++;
-          this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
-          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
           this.subsCounter.unsubscribe();
         }
       );
@@ -811,117 +549,15 @@ export class ViewHomeComponent implements OnInit {
     }
   }
 
-  cancelTurn2(user: UserModel, inscription: InscripcionModel) {
-    this.selectedTurn.available = true;
-    this.selectedTurn.confirm = false;
-    this.selectedTurn.userName = "";
-    this.selectedTurn.count = 0;
-    user.reserved = false;
-    if (user.countReserved >= 1) {
-      user.countReserved--;
-    }
-
-    this.subsGetEventsMe = this.homeService
-      .getEventMe()
-      .subscribe(ObjEventsMe => {
-        let arrayEvents = [];
-        arrayEvents = ObjEventsMe["value"];
-        arrayEvents.forEach(elem => {
-          if (elem.subject === user.messageEvent) {
-            this.homeService.deleteEventMe(elem.id);
-          }
-        });
-      });
-
-    this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
-    this.updateUser(user.$key, user);
-    this.onDelete(inscription.$key);
-
-    this.modalSelectTurn.close();
-    this.subsCounter.unsubscribe();
-
-    if (this.modalConfirm) {
-      this.modalConfirm.close();
-      this.modalConfirm.result.then(
-        result => {
-          this.closeResult = `Closed with: ${result}`;
-          this.selectedTurn.count = 0;
-          this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
-        },
-        reason => {
-          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-        }
-      );
-      this.subsCounter.unsubscribe();
-    }
-  }
-
-  cancelTurn3(user: UserModel, inscription: InscripcionModel) {
-    this.selectedTurn.available = true;
-    this.selectedTurn.confirm = false;
-    this.selectedTurn.userName = "";
-    this.selectedTurn.count = 0;
-    user.reserved = false;
-    if (user.countReserved >= 1) {
-      user.countReserved--;
-    }
-
-    this.subsGetEventsMe = this.homeService
-      .getEventMe()
-      .subscribe(ObjEventsMe => {
-        let arrayEvents = [];
-        arrayEvents = ObjEventsMe["value"];
-        arrayEvents.forEach(elem => {
-          if (elem.subject === user.messageEvent) {
-            this.homeService.deleteEventMe(elem.id);
-          }
-        });
-      });
-
-    this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
-    this.updateUser(user.$key, user);
-    this.onDelete(inscription.$key);
-
-    this.modalSelectTurn.close();
-    this.subsCounter.unsubscribe();
-
-    if (this.modalConfirm) {
-      this.modalConfirm.close();
-      this.modalConfirm.result.then(
-        result => {
-          this.closeResult = `Closed with: ${result}`;
-          this.selectedTurn.count = 0;
-          this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
-        },
-        reason => {
-          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-        }
-      );
-      this.subsCounter.unsubscribe();
-    }
-  }
-
   insertInscription(x) {
     if (InscripcionModel) {
       this.inscriptionService.insertInscription(x);
     }
   }
 
-  insertReport(x) {
-    if (ReportsModel) {
-      this.reportService.insertReport(x);
-    }
-  }
-
   insertUser(x) {
     if (UserModel) {
       this.userService.insertUser(x);
-    }
-  }
-
-  insertTurn2(x) {
-    if (TurnModel) {
-      this.turnoService.inserTurn2(x);
     }
   }
 
@@ -933,14 +569,6 @@ export class ViewHomeComponent implements OnInit {
 
   updateTurn1(key, x) {
     this.turnoService.updateTurn1(key, x);
-  }
-
-  updateTurn2(key, x) {
-    this.turnoService.updateTurn2(key, x);
-  }
-
-  updateTurn3(key, x) {
-    this.turnoService.updateTurn3(key, x);
   }
 
   updateUser(key, x) {
