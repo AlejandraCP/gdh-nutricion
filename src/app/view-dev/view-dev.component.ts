@@ -85,28 +85,6 @@ export class ViewDevComponent implements OnInit {
         });
       });
 
-      this.turnoService.getTurnosT2()
-      .snapshotChanges()
-      .subscribe(item => {
-        this.terapeuta2 = [];
-        item.forEach(elem => {
-          let x = elem.payload.toJSON();
-          x["$key"] = elem.key;
-          this.terapeuta2.push(x);
-        });        
-      });
-
-      this.turnoService.getTurnosT3()
-      .snapshotChanges()
-      .subscribe(item => {
-        this.terapeuta3 = [];
-        item.forEach(elem => {
-          let x = elem.payload.toJSON();
-          x["$key"] = elem.key;
-          this.terapeuta3.push(x);
-        });
-      });
-
       // get user list
       this.userService.getUser()
       .snapshotChanges()
@@ -135,14 +113,6 @@ export class ViewDevComponent implements OnInit {
     this.terapeuta1.forEach( element => {
       this.turnoService.updatet1Turn1(element['$key']);
     })
-
-    this.terapeuta2.forEach( element => {
-      this.turnoService.updatet2Turn1(element['$key']);
-    })
-
-    this.terapeuta3.forEach( element => {
-      this.turnoService.updatet3Turn1(element['$key']);
-    })
   }
 
   updateUserReset() {
@@ -157,14 +127,6 @@ export class ViewDevComponent implements OnInit {
 
   changeStateAvailableT1($key, available) {
     this.turnoService.changeStateAvailableT1($key, !available);
-  }
-
-  changeStateAvailableT2($key, available) {
-    this.turnoService.changeStateAvailableT2($key, !available);
-  }
-
-  changeStateAvailableT3($key, available) {
-    this.turnoService.changeStateAvailableT3($key, !available);
   }
 
 }

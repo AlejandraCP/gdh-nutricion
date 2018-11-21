@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
+
+// services
 import { AuthFirebaseService } from "./../services/auth-firebase.service";
-import { UserService } from "./../services/user.service";
 import { Report2Service } from "./../services/report2.service";
 import { TurnosService } from "./../services/turnos.service";
 import { SharingDataService } from "./../services/sharing-data.service";
@@ -36,8 +37,6 @@ export class ViewAdminComponent implements OnInit {
   arrayArray: any[];
   monthArray: any[];
   terapeuta1: any[];
-  terapeuta2: any[];
-  terapeuta3: any[];
   userList: any[];
   countArray: any[];
   currentBool: any[];
@@ -172,7 +171,7 @@ export class ViewAdminComponent implements OnInit {
     }
 
     // this.selectedValue = this.months[0];
-    var currentDate = "/" + this.currentMonth + "/" + this.currentYear;
+    // var currentDate = "/" + this.currentMonth + "/" + this.currentYear;
 
     this.years.forEach(element => {
       if (element.year === this.currentYear) {
@@ -199,17 +198,13 @@ export class ViewAdminComponent implements OnInit {
                 y["$key"] = e.key;
                 this.reporListDate.push(y);
               });
-
               this.reporListDate.forEach(element => {
                 if (
                   element["dates"].substring(3) ===
-                  `${
-                    this.selectedValue.number
-                  }/${this.selectedValueYear.year.toString()}`
+                  `${this.selectedValue.number}/${this.selectedValueYear.year.toString()}`
                 ) {
                   this.arrayArray.push(element);
                   if (!this.report2List.includes(x)) {
-                    Object.keys(x["dates"]).length;
                     this.report2List.push(x);
                   }
                 }
@@ -500,16 +495,6 @@ export class ViewAdminComponent implements OnInit {
     let sumaHour;
     this.turnosService.deleteTurns();
 
-    if (this.terapeuta2[0].hourStart.length == 5) {
-      sumaHour =
-        parseInt(hourStart) -
-        parseInt(this.terapeuta2[0].hourStart.slice(0, 2));
-    } else {
-      sumaHour =
-        parseInt(hourStart) -
-        parseInt(this.terapeuta2[0].hourStart.slice(0, 1));
-    }
-
     this.terapeuta1.forEach((e, i) => {
       let currenthourEnd;
       let currenthourStart;
@@ -561,28 +546,6 @@ export class ViewAdminComponent implements OnInit {
         hourStart: currenthourStart + ":" + getMinutInit,
         hourEnd: currenthourEnd + ":" + getMinutFin,
         therapistId: 1,
-        userName: "",
-        count: 0
-      };
-      let turno2: TurnModel = {
-        $key: "",
-        available: true,
-        confirm: false,
-        hour24: `${hour24}:${getMinutInit}`,
-        hourStart: currenthourStart + ":" + getMinutInit,
-        hourEnd: currenthourEnd + ":" + getMinutFin,
-        therapistId: 2,
-        userName: "",
-        count: 0
-      };
-      let turno3: TurnModel = {
-        $key: "",
-        available: true,
-        confirm: false,
-        hour24: `${hour24}:${getMinutInit}`,
-        hourStart: currenthourStart + ":" + getMinutInit,
-        hourEnd: currenthourEnd + ":" + getMinutFin,
-        therapistId: 3,
         userName: "",
         count: 0
       };

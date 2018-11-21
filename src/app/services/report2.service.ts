@@ -54,15 +54,6 @@ export class Report2Service {
     })
   }
 
-  updateReport2(key:string, report: Report2Model){
-    this.report2List.update(report.$key, {
-      dates: report.dates,
-      lastName: report.lastName,
-      mail: report.mail,
-      name: report.name
-    });
-  }
-
   deleteReportDate0($key){
     this.reportListDate = this.firebase.list('report2/'+$key+'/dates');
     this.reportListDate.remove('0');

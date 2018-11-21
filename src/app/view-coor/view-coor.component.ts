@@ -11,10 +11,7 @@ import { SharingDataService } from '../services/sharing-data.service';
 // models 
 // models
 import { InscripcionModel } from '../models/inscriptions';
-import { ReportsModel } from '../models/reports';
-import { Report2Model } from './../models/report2';
 import { ReportDateModel } from './../models/report-date';
-import { UserModel } from './../models/users';
 import { log } from 'util';
 @Component({
   selector: 'app-view-coor',
@@ -167,20 +164,6 @@ export class ViewCoorComponent implements OnInit {
     if(userAssist === stringVal) {
       boolMatch = true;
     }
-    let report: ReportsModel = {
-      date: date,
-      hourStart: hourStart,
-      hourEnd: hourEnd,
-      userName: userName,
-      userAssistRight: userAssist,
-      userAssist: stringVal,
-      boolMatch: boolMatch,
-      assistance: assistance,
-      boolAny: boolAny,
-      therapist: therapist,
-      lastName: lastName,
-      mail: mail
-    };
 
     let reportDate : ReportDateModel = {
       date: date,

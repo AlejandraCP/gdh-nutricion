@@ -16,8 +16,6 @@ import { InscriptionService } from '../services/inscription.service';
 
 // models
 import { InscripcionModel } from '../models/inscriptions';
-import { ReportsModel } from '../models/reports';
-
 
 
 @Component({

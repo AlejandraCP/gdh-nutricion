@@ -21,12 +21,9 @@ import { SharingDataService } from "./../services/sharing-data.service";
 
 // models
 import { InscripcionModel } from "./../models/inscriptions";
-import { ReportsModel } from "./../models/reports";
 import { TurnModel } from "./../models/turns";
 import { UserModel } from "./../models/users";
 import { Report2Model } from "./../models/report2";
-import { ReportDateModel } from "./../models/report-date";
-import { LoginComponent } from "../login/login.component";
 import { log } from "util";
 
 @Component({

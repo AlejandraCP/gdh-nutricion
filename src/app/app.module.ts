@@ -14,7 +14,6 @@ import { ToastrModule } from 'ngx-toastr';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { ViewHomeComponent } from './view-home/view-home.component';
 import { LoginFbComponent } from './login-fb/login-fb.component';
@@ -60,7 +59,6 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     LoginComponent,
     ViewLoginComponent,
     ViewHomeComponent,
