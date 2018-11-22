@@ -364,7 +364,7 @@ export class ViewHomeComponent implements OnInit {
     user.countReserved++;
     user.countAgendas++;
     user.messageEvent =
-      "Consulta Nutricional - Terapeuta " + this.selectedTurn.therapistId;
+      "Consulta Nutricional";
     this.updateUser(user.$key, user);
 
     let send;
@@ -376,7 +376,7 @@ export class ViewHomeComponent implements OnInit {
         "-" +
         this.selectedTurn.hourEnd,
       subject:
-        "Consulta Nutricional - Terapeuta " + this.selectedTurn.therapistId,
+        "Consulta Nutricional",
       start: {
         dateTime: this.dateIni,
         timeZone: "GMT-0500"

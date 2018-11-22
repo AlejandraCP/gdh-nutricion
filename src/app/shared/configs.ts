@@ -4,7 +4,7 @@
 */
 
 export const Configs = {
-  appId: '8a783b11-f9c2-42c6-9456-078f30c03b51',
+  appId: '5056213f-8028-4dcf-82e4-9c04e98f1c1c',
   scope: 'User.Read Mail.Send Calendars.ReadWrite Calendars.ReadWrite.Shared Bookings.ReadWrite.All'
 };
 //openid profile User.Read Mail.Read Calendars.Read Contacts.Read 
