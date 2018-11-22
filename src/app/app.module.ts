@@ -23,6 +23,7 @@ import { ViewLoginComponent } from './view-login/view-login.component';
 import { ViewDevComponent } from './view-dev/view-dev.component';
 import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
 
+// services
 import { HttpService } from './shared/http.service';
 import { AuthService } from './auth/auth.service';
 import { HomeService } from './home/home.service';
@@ -32,8 +33,7 @@ import { InscriptionService } from './services/inscription.service';
 import { AuthFirebaseService } from './services/auth-firebase.service';
 import { UserService } from './services/user.service';
 import { SharingDataService } from './services/sharing-data.service';
-
-
+import { EditionsService } from './services/editions.service';
 // import angular firebase
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -54,8 +54,6 @@ const routes: Routes = [
   { path: 'dev', component: ViewDevComponent, canActivate: [AuthGuard]},
   {path: '**', component: NotFoundPageComponent}
 ];
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,7 +67,7 @@ const routes: Routes = [
     ViewDevComponent
   ],
   imports: [
-AngularFireAuthModule,
+    AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
     BrowserModule,
@@ -95,7 +93,8 @@ AngularFireAuthModule,
     InscriptionService,
     AuthFirebaseService,
     UserService,
-    SharingDataService
+    SharingDataService,
+    EditionsService
   ],
   bootstrap: [
     AppComponent

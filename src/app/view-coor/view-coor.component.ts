@@ -1,16 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthFirebaseService } from './../services/auth-firebase.service';
 
 // services
+import { AuthFirebaseService } from './../services/auth-firebase.service';
 import { InscriptionService } from '../services/inscription.service';
 import { Report2Service } from './../services/report2.service';
-import { UserService } from './../services/user.service';
 import { SharingDataService } from '../services/sharing-data.service';
 
 
 // models 
-// models
-import { InscripcionModel } from '../models/inscriptions';
 import { ReportDateModel } from './../models/report-date';
 import { log } from 'util';
 @Component({
@@ -43,7 +40,6 @@ export class ViewCoorComponent implements OnInit {
     private authFirebaseService: AuthFirebaseService,
     private inscriptionService: InscriptionService,
     private report2Service: Report2Service,
-    private userService: UserService,
     public sharingDataService: SharingDataService
   ) { }
 
@@ -187,14 +183,12 @@ export class ViewCoorComponent implements OnInit {
       }
     }
     
-
     // this.reportService.insertReport(report);
     boolAny = true;
     type = 'password';
     this.inscriptionService.updateStringVal($key,stringVal)
     this.inscriptionService.updateBoolAny($key,boolAny);
-    this.inscriptionService.updateType($key, type);
-    
+    this.inscriptionService.updateType($key, type);    
   }
 
   insertReportDate(x){
@@ -203,7 +197,6 @@ export class ViewCoorComponent implements OnInit {
     }
   }
   oh(x) {
-    
   }
 
 }

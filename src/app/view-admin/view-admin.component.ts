@@ -5,8 +5,11 @@ import { AuthFirebaseService } from "./../services/auth-firebase.service";
 import { Report2Service } from "./../services/report2.service";
 import { TurnosService } from "./../services/turnos.service";
 import { SharingDataService } from "./../services/sharing-data.service";
+import { EditionsService } from "./../services/editions.service";
+
 
 //models
+import { EditionsModel } from "./../models/editions";
 import { TurnModel } from "./../models/turns";
 
 @Component({
@@ -40,9 +43,11 @@ export class ViewAdminComponent implements OnInit {
   userList: any[];
   countArray: any[];
   currentBool: any[];
+  msgEditionList: any[];
   hourCoorList: any[];
   public changeBool: boolean;
   public showErrInput: boolean = false;
+  public msgError: boolean = false;
   id1: any = 0;
 
   // vars table
@@ -69,7 +74,8 @@ export class ViewAdminComponent implements OnInit {
     private authFirebaseService: AuthFirebaseService,
     private report2Service: Report2Service,
     private turnosService: TurnosService,
-    private sharingDataService: SharingDataService
+    private sharingDataService: SharingDataService,
+    private editionsService: EditionsService
   ) {}
 
   ngOnInit() {
@@ -170,144 +176,25 @@ export class ViewAdminComponent implements OnInit {
       }
     }
 
-    // this.selectedValue = this.months[0];
-    // var currentDate = "/" + this.currentMonth + "/" + this.currentYear;
-
     this.years.forEach(element => {
       if (element.year === this.currentYear) {
       }
     });
 
     //get reports2
-    this.report2Service
-      .getReports2()
-      .snapshotChanges()
-      .subscribe(item => {
-        this.report2List = [];
-        this.arrayArray = [];
-        item.forEach(elem => {
-          let x = elem.payload.toJSON();
-          x["$key"] = elem.key;
-          this.report2Service
-            .getReportsDate(elem.key)
-            .snapshotChanges()
-            .subscribe(item1 => {
-              this.reporListDate = [];
-              item1.forEach(e => {
-                let y = e.payload.toJSON();
-                y["$key"] = e.key;
-                this.reporListDate.push(y);
-              });
-              this.reporListDate.forEach(element => {
-                if (
-                  element["dates"].substring(3) ===
-                  `${this.selectedValue.number}/${this.selectedValueYear.year.toString()}`
-                ) {
-                  this.arrayArray.push(element);
-                  if (!this.report2List.includes(x)) {
-                    this.report2List.push(x);
-                  }
-                }
-                this.monthArray = [];
-                this.writeIncorrect = 0;
-                this.writeCorrect = 0;
-                this.attendance = 0;
-                this.noAttendance = 0;
-                this.total = 0;
-                this.writeCorrectPercent = 0;
-                this.writeIncorrectPercent = 0;
-                this.attendancePercent = 0;
-                this.noAttendancePercent = 0;
-                this.totalPercent = 0;
-                this.totalPercentAttendance = 0;
-                for (let index = 0; index < this.arrayArray.length; index++) {
-                  if (this.arrayArray[index].assistance === false) {
-                    this.noAttendance = this.noAttendance + 1;
-                  } else if (this.arrayArray[index].boolMatch === true) {
-                    this.writeCorrect = this.writeCorrect + 1;
-                  } else if (
-                    this.arrayArray[index].assistance === true &&
-                    this.arrayArray[index].boolMatch === false
-                  ) {
-                    this.writeIncorrect = this.writeIncorrect + 1;
-                  }
-                  if (this.arrayArray[index].assistance === true) {
-                    this.attendance = this.attendance + 1;
-                  }
-                }
-                this.total = this.noAttendance + this.attendance;
-                this.attendancePercent = Math.round(
-                  (this.attendance * 100) / this.total
-                );
-                this.noAttendancePercent = Math.round(
-                  (this.noAttendance * 100) / this.total
-                );
-                this.writeCorrectPercent = Math.round(
-                  (this.writeCorrect * 100) / this.attendance
-                );
-                this.writeIncorrectPercent = Math.round(
-                  (this.writeIncorrect * 100) / this.attendance
-                );
-                this.totalPercent =
-                  this.attendancePercent + this.noAttendancePercent;
-                this.totalPercentAttendance =
-                  this.writeCorrectPercent + this.writeIncorrectPercent;
+    this.getRepostRequest(this.selectedValue,this.selectedValueYear)
 
-                if (isNaN(this.attendancePercent) === false) {
-                  this.attendanceBool = true;
-                } else if (isNaN(this.attendancePercent)) {
-                  this.attendanceBool = false;
-                }
-
-                if (isNaN(this.noAttendancePercent) === false) {
-                  this.noAttendanceBool = true;
-                } else if (isNaN(this.noAttendancePercent)) {
-                  this.noAttendanceBool = false;
-                }
-
-                if (isNaN(this.totalPercent) === false) {
-                  this.totalPercentBool = true;
-                } else if (isNaN(this.totalPercent)) {
-                  this.totalPercentBool = false;
-                }
-
-                if (isNaN(this.writeCorrectPercent) === false) {
-                  this.writeCorrectBool = true;
-                } else if (isNaN(this.writeCorrectPercent)) {
-                  this.writeCorrectBool = false;
-                }
-
-                if (isNaN(this.writeIncorrectPercent) === false) {
-                  this.writeIncorrectBool = true;
-                } else if (isNaN(this.writeIncorrectPercent)) {
-                  this.writeIncorrectBool = false;
-                }
-
-                if (isNaN(this.attendancePercent) === false) {
-                  this.attendanceBool = true;
-                } else if (isNaN(this.attendancePercent)) {
-                  this.attendanceBool = false;
-                }
-
-                if (isNaN(this.totalPercentAttendance) === false) {
-                  this.totalAttendanceBool = true;
-                } else if (isNaN(this.totalPercentAttendance)) {
-                  this.totalAttendanceBool = false;
-                }
-
-                this.loading = false;
-                if (this.total === this.noAttendance + this.attendance) {
-                  this.loading = true;
-                }
-                this.arrayArray.forEach(elem => {
-                  if (!this.monthArray.includes(elem["dates"])) {
-                    this.monthArray.push(elem["dates"]);
-                  }
-                });
-              });
-            });
-        });
+    //get msg edition
+    this.editionsService.getMsgEditions()
+    .snapshotChanges()
+    .subscribe( item => {
+      this.msgEditionList = [];
+      item.forEach(element => {
+        let x = element.payload.toJSON();
+        x['$key'] = element.key;
+        this.msgEditionList.push(x)
       });
+    });
 
     // get current boolean
     this.sharingDataService
@@ -352,7 +239,7 @@ export class ViewAdminComponent implements OnInit {
     this.selectMonth(month);
     this.selectYear(year);
     let currentMonth = month.number;
-    let currentYear = year.year;
+    let currentYear = year.year.toString();
     this.report2Service
       .getReports2()
       .snapshotChanges()
@@ -468,6 +355,12 @@ export class ViewAdminComponent implements OnInit {
                   this.totalAttendanceBool = false;
                 }
               });
+
+              this.loading = false;
+                if (this.total === this.noAttendance + this.attendance) {
+                  this.loading = true;
+                }
+
               this.monthArray = [];
               this.arrayArray.forEach(elem => {
                 if (!this.monthArray.includes(elem["dates"])) {
@@ -491,9 +384,31 @@ export class ViewAdminComponent implements OnInit {
     this.turnosService.changeStateAvailableT1($key, !available);
   }
 
+  updateMsgEdition(p_msgEdition){
+    let msgEdition: EditionsModel = {
+      $key:'',
+      msg: p_msgEdition
+    };
+    this.msgEditionList.forEach(element => {
+      if (element.id == 1) {
+        this.editionsService.updateMsgdition(element.$key, msgEdition);
+      }
+    });
+  }
+
   updateSchedule(hourStart) {
     let sumaHour;
     this.turnosService.deleteTurns();
+
+    if (this.terapeuta1[0].hourStart.length == 5) {
+      sumaHour =
+        parseInt(hourStart) -
+        parseInt(this.terapeuta1[0].hourStart.slice(0, 2));
+    } else {
+      sumaHour =
+        parseInt(hourStart) -
+        parseInt(this.terapeuta1[0].hourStart.slice(0, 1));
+    }
 
     this.terapeuta1.forEach((e, i) => {
       let currenthourEnd;

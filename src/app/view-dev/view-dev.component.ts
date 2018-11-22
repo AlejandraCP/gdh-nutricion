@@ -2,13 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthFirebaseService } from './../services/auth-firebase.service';
 import { InscriptionService } from '../services/inscription.service';
 import { TurnosService } from './../services/turnos.service';
-import { element } from 'protractor';
 import { UserService } from './../services/user.service';
 import { SharingDataService } from './../services/sharing-data.service';
-
-
-
-
 @Component({
   selector: 'app-view-dev',
   templateUrl: './view-dev.component.html',
@@ -20,8 +15,6 @@ export class ViewDevComponent implements OnInit {
   public show: boolean;
   inscriptionList: any[];
   terapeuta1: any[];
-  terapeuta2: any[];
-  terapeuta3: any[];
   userList: any[];
   currentBool: any[];
   public changeBool: boolean;
@@ -48,7 +41,6 @@ export class ViewDevComponent implements OnInit {
       }
     });
 
-      
     // get inscriptions
     this.inscriptionService.getInscriptions()
     .snapshotChanges()
