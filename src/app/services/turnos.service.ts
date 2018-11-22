@@ -25,7 +25,8 @@ export class TurnosService {
       hourStart: turn1.hourStart,
       therapistId: turn1.therapistId,
       count: turn1.count,
-      userName: turn1.userName
+      userName: turn1.userName,
+      turnId: turn1.turnId
     });
   }
 
