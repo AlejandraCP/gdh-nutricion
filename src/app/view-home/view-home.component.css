@@ -22,6 +22,12 @@
     cursor: auto;
 }
 
+.loading-confirm-turn{
+    height: 100px;
+    width: 100px;
+    margin: auto
+}
+
 .therapist-content span{
     color: #808CA5;
     font-size: 20px;
@@ -188,15 +194,11 @@
 }
 
 @media (min-width: 768px) {
-    /* .m-view{
-        display: none;
-    }
-    .d-view{
-        display: block;
-    } */
     .content-lgnd {
         display: block;
     }
+
+    
 }
 
 /* view not available */

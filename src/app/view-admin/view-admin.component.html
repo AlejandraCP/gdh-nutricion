@@ -19,6 +19,10 @@
                 <a class="tab-item" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab"
                     aria-controls="v-pills-profile" aria-selected="false"><i aria-hidden="true" class="fa fa-cog pr-2"></i>Configuración
                 </a>
+                <a class="tab-item" id="v-pills-edicion-tab" data-toggle="pill" href="#v-pills-edicion" role="tab"
+                    aria-controls="v-pills-edicion" aria-selected="false"><i aria-hidden="true" class="fa fa-pencil pr-2"></i>
+                    Edición
+                </a>
             </div>
             <a class="nav-link sign-out" href="/login" (click)="logoutUser()"><i class="fa fa-sign-out" aria-hidden="true"></i>Salir</a>
         </div>
@@ -213,31 +217,6 @@
                                             </div>
                                 
                                         </div>
-                                        <div *ngIf="terapeuta2" class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 text-center mt-4 state-turn">
-                                            <h4>Turnos - Terapeuta 2</h4>
-                                            <div *ngFor="let turns2 of terapeuta2">
-                                                <div class="w-200 btn content-switch">
-                                                <span class="mr-3 text-turno d-inline-block w-50">{{turns2.hourStart}} - {{turns2.hourEnd}} </span>
-                                                <label class="switch">
-                                                    <input type="checkbox" [attr.checked]="turns2.available ? 'checked' : null" (click)="changeStateAvailableT2(turns2.$key, turns2.available)">
-                                                    <span class="slider round"></span>
-                                                </label>
-                                                </div>
-                                            </div>
-                                
-                                        </div>
-                                        <div *ngIf="terapeuta3" class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 text-center mt-4 state-turn">
-                                            <h4>Turnos - Terapeuta 3</h4>
-                                            <div *ngFor="let turns3 of terapeuta3">
-                                                <div class="w-200 btn content-switch">
-                                                    <span class="mr-3 text-turno d-inline-block w-50">{{turns3.hourStart}} - {{turns3.hourEnd}} </span>
-                                                    <label class="switch">
-                                                        <input type="checkbox" [attr.checked]="turns3.available ? 'checked' : null" (click)="changeStateAvailableT3(turns3.$key, turns3.available)">
-                                                        <span class="slider round"></span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -247,9 +226,7 @@
                                         <form class="form-inline mt-2 updateSchedule mb-2 needs-validation" novalidate> 
                                             <label for="hourIni">Hora Inicial</label>
                                             <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                                                <!-- <div class="input-group-addon">@</div> -->
                                                 <input #inputHourIni type="number" class="form-control" id="hourIni" maxlength="2" min="9" max="18" required>
-                                                <!-- <input type="number" class="form-control" id="minutIni" placeholder="Minuto" maxlength="2"> -->
                                                 
                                             </div>
                                             <div *ngIf="inputHourIni.value == '' || inputHourIni.value == undefined">
@@ -268,10 +245,20 @@
                         </div>
                 </div>
             </div>
-
+        </div>
+        <div class="tab-pane fade" id="v-pills-edicion" role="tabpanel" aria-labelledby="v-pills-edicion-tab">
+            <div class="wrapper-form-msg">                
+                    <div class="form-header">Editar mensaje al colaborador</div>
+                    <div class="form-grp">
+                      <label>Mensaje</label>
+                      <input #inputMsg type="text" id="inputMsg"/>
+                    </div>
+                    <div class="form-grp">
+                      <button class= "btn-updateMsg" type="submit" (click)="updateMsgEdition(inputMsg.value)">Actualizar</button>
+                    </div>
+            </div>
         </div>
     </div>
-
 </div>
 
 <div class="d-flex justify-content-center" *ngIf="!show">
