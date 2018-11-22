@@ -462,7 +462,8 @@ export class ViewAdminComponent implements OnInit {
         hourEnd: currenthourEnd + ":" + getMinutFin,
         therapistId: 1,
         userName: "",
-        count: 0
+        count: 0,
+        turnId: 'therapist1Turn'+i
       };
       this.turnosService.inserTurn1(turno1);
     });

@@ -8,4 +8,5 @@ export class TurnModel {
     public therapistId: number;
     public confirm: boolean;
     public userName: string;
+    public turnId: string;
 }
