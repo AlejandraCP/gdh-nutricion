@@ -182,6 +182,9 @@
     display: none;
     padding-top: 57px;
 }
+.logOut-small {
+    display: block;
+}
 .item-lgnd{
     min-width: 150px;
     margin-bottom: 20%;
@@ -197,8 +200,9 @@
     .content-lgnd {
         display: block;
     }
-
-    
+    .logOut-small {
+        display: none;
+    }
 }
 
 /* view not available */
@@ -249,4 +253,7 @@
     }
 }
 
+.content-gift {
+    max-height: 65vh !important;
+}
 

@@ -324,6 +324,7 @@ export class ViewHomeComponent implements OnInit {
       } else if ( hour >= 10) {
         hour = hour.toString();
       }
+      
       let currentDate = `${hour}:${minute}` 
       this.sharingDataService.updateCurentTiem(this.currentTime[0].$key,currentDate);
     },30000)

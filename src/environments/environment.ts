@@ -12,14 +12,5 @@ export const environment = {
     projectId: "desarrollo-gdh-nutricion",
     storageBucket: "desarrollo-gdh-nutricion.appspot.com",
     messagingSenderId: "1042592362619"
-    // masajes
-    // apiKey: "AIzaSyDfxhEHVwu9U0ckIh9Nr30bZma0W8JKfMQ",
-    // apiKey: "AIzaSyDdXZa0cFiEgP0dQPR6EhqGCzK8wJoHycs", //desarrollo
-    // authDomain: "gdh-masajes.firebaseapp.com",
-    // databaseURL: "https://gdh-masajes.firebaseio.com",
-    // databaseURL: "https://masajes-test.firebaseio.com",
-    // projectId: "gdh-masajes",
-    // storageBucket: "gdh-masajes.appspot.com",
-    // messagingSenderId: "300960399533"
   }
 };
