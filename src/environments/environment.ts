@@ -6,11 +6,12 @@
 export const environment = {
   production: false,
   firebaseConfig: {
-    apiKey: "AIzaSyA7LZTgWn-jDVifAQldFgC6UhesW509Fs4",
-    authDomain: "desarrollo-gdh-nutricion.firebaseapp.com",
-    databaseURL: "https://desarrollo-gdh-nutricion.firebaseio.com",
-    projectId: "desarrollo-gdh-nutricion",
-    storageBucket: "desarrollo-gdh-nutricion.appspot.com",
-    messagingSenderId: "1042592362619"
+    apiKey: "AIzaSyASFdWvo7PSJfV6D5kz0sw071bvneH37Cs",
+    authDomain: "gdh-nutricion.firebaseapp.com",
+    databaseURL: "https://gdh-nutricion.firebaseio.com",
+    projectId: "gdh-nutricion",
+    storageBucket: "gdh-nutricion.appspot.com",
+    messagingSenderId: "543656338535",
+    appId: "1:543656338535:web:4849d268cf93a1951c20c2"
   }
 };

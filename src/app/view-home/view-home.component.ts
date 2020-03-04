@@ -501,7 +501,7 @@ export class ViewHomeComponent implements OnInit {
     
     this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
 
-    const timeOut = Observable.timer(3000);
+    const timeOut = Observable.timer(6000);
 
     timeOut.subscribe( t => {
  

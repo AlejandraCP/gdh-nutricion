@@ -86,7 +86,9 @@ export class ViewAdminComponent implements OnInit {
         this.isLogin = true;
         if (
           auth.email === "aponcedeleon@inteligogroup.com" ||
-          auth.email === "valvarez@inteligogroup.com"
+          auth.email === "ymorales@inteligogroup.com" ||
+          auth.email === "kcabrejos@inteligogroup.com" ||
+          auth.email === "yvasquezp@intercorp.com.pe"
         ) {
           this.show = true;
         } else if (auth.email == undefined || auth.email == null) {

@@ -29,7 +29,9 @@ export class LoginFbComponent implements OnInit {
         this.authService.getAuth().subscribe(auth => {
           if (
             auth.email === 'aponcedeleon@inteligogroup.com' ||
-            auth.email === 'valvarez@inteligogroup.com'
+            auth.email === 'ymorales@inteligogroup.com' ||
+            auth.email === 'kcabrejos@inteligogroup.com' ||
+            auth.email === 'yvasquezp@intercorp.com.pe'
           ) {
             this.router.navigate(['/admin']);
           } else if (

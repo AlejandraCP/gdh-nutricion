@@ -5,7 +5,8 @@ export const environment = {
     authDomain: "gdh-nutricion.firebaseapp.com",
     databaseURL: "https://gdh-nutricion.firebaseio.com",
     projectId: "gdh-nutricion",
-    storageBucket: "",
-    messagingSenderId: "543656338535"
+    storageBucket: "gdh-nutricion.appspot.com",
+    messagingSenderId: "543656338535",
+    appId: "1:543656338535:web:4849d268cf93a1951c20c2"
   }
 };
